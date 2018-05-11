@@ -427,7 +427,7 @@ def option_parser(args):
   print('platform.uname()[1].lower() : %s' % platform.uname()[1].lower())
   print('platform.uname()[2].lower() : %s' % platform.uname()[2].lower())
   print('platform.uname()[3].lower() : %s' % platform.uname()[3].lower())
-  host_uname = platform.uname()[3].lower()
+  host_uname = platform.uname()[0].lower()
   print('host_uname : %s' % host_uname)
   print('options.target_platform : %s' % options.target_platform)
 

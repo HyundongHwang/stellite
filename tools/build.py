@@ -431,7 +431,9 @@ def option_parser(args):
   print('host_uname : %s' % host_uname)
   print('options.target_platform : %s' % options.target_platform)
 
-  if options.target_platform == ANDROID and not UBUNTU in host_uname:
+
+  if options.target_platform == ANDROID and not linux in host_uname:
+  # if options.target_platform == ANDROID and not UBUNTU in host_uname:
     print('android build must built on ubuntu/linux')
     sys.exit(1)
 

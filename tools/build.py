@@ -712,14 +712,27 @@ class BuildObject(object):
     return job.stdout.read().strip()
 
   def execute_with_error(self, command, env=None, cwd=None):
+    print("execute_with_error command : %s" % command);
+    print("execute_with_error env : %s" % env);
+    print("execute_with_error cwd : %s" % cwd);
+
+
     env = env or os.environ.copy()
     env_path = self.depot_tools_path
+
+    print("execute_with_error env : %s" % env);
+    print("execute_with_error env_path : %s" % env_path);
+
     if env.get('PATH'):
       env_path = '{}:{}'.format(env.get('PATH'), self.depot_tools_path)
+
+    print("execute_with_error env_path : %s" % env_path)
     env['PATH'] = env_path
     print('Running: %s' % (' '.join(pipes.quote(x) for x in command)))
 
     job = subprocess.Popen(command, env=env, cwd=cwd)
+    print("execute_with_error job : %s" % job)
+
     return job.wait() == 0
 
 
@@ -817,9 +830,11 @@ class BuildObject(object):
     """generate ninja build script using gn."""
     gn_options = gn_options or []
 
+    print("generate_ninja_script gn_args : %s" % gn_args);
     gn_args += '\nis_debug = {}\n'.format('true' if self.debug else 'false')
     gn_args += '\nis_asan = {}\n'.format('true' if self.asan else 'false')
     gn_args += '\nsymbol_level = {}\n'.format('1' if self.debug else '0')
+    print("generate_ninja_script gn_args : %s" % gn_args);
 
     if not os.path.exists(self.build_output_path):
       os.makedirs(self.build_output_path)
@@ -1393,6 +1408,7 @@ class AndroidBuild(BuildObject):
       gn_context = GN_ARGS_ANDROID.format(target_cpu=self.clang_arch(arch))
       print("build gn_context : %s" % gn_context)
       gn_context += '\n' + self.appendix_gn_args(arch)
+      print("build self.appendix_gn_args(arch) : %s" % self.appendix_gn_args(arch))
       print("build gn_context : %s" % gn_context)
       build.generate_ninja_script(gn_args=gn_context)
 

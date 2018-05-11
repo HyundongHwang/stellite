@@ -730,7 +730,7 @@ class BuildObject(object):
       return
 
     print("execute command : %s" % command)
-    raise Exception('command execution are failed')
+    # raise Exception('command execution are failed')
 
   def fetch_depot_tools(self):
     """get depot_tools code"""

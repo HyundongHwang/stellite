@@ -1383,12 +1383,17 @@ class AndroidBuild(BuildObject):
 
   def build(self):
     for arch in ('armv6', 'armv7', 'arm64', 'x86', 'x64'):
+      print("build arch : %s" % arch)
       kwargs = self.kwargs
       kwargs[TARGET_ARCH] = arch
+      print("build kwargs : %s" % kwargs)
       build = AndroidBuild(**kwargs)
+      print("build build : %s" % build)
 
       gn_context = GN_ARGS_ANDROID.format(target_cpu=self.clang_arch(arch))
+      print("build gn_context : %s" % gn_context)
       gn_context += '\n' + self.appendix_gn_args(arch)
+      print("build gn_context : %s" % gn_context)
       build.generate_ninja_script(gn_args=gn_context)
 
       build.build_target(self.target)

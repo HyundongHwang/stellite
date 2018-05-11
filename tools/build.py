@@ -729,6 +729,7 @@ class BuildObject(object):
     if bool(res) == True:
       return
 
+    print("execute command : %s" % command)
     raise Exception('command execution are failed')
 
   def fetch_depot_tools(self):

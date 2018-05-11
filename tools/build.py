@@ -423,7 +423,7 @@ def option_parser(args):
     print('target must built on linux')
     sys.exit(1)
 
-  print('platform.uname() : %s' % platform.uname())
+  print('platform.uname()[3].lower() : %s' % platform.uname()[3].lower())
   host_uname = platform.uname()[3].lower()
   print('host_uname : %s' % host_uname)
   print('options.target_platform : %s' % options.target_platform)

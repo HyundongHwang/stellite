@@ -22,10 +22,13 @@
 
 # etc
 *.swp
-
+:wq
 
 
 **/.vs/**
 .ycm_extra_conf.py
 **/build_windows/**
 **/third_party/**
+**/.gradle/**
+**/.idea/**
+**/.externalNativeBuild/**

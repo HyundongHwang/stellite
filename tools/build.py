@@ -424,9 +424,9 @@ def option_parser(args):
     sys.exit(1)
 
   host_uname = platform.uname()[3].lower()
-  if options.target_platform == ANDROID and not UBUNTU in host_uname:
-    print('android build must built on ubuntu/linux')
-    sys.exit(1)
+  # if options.target_platform == ANDROID and not UBUNTU in host_uname:
+  #   print('android build must built on ubuntu/linux')
+  #   sys.exit(1)
 
   if not options.node_module_version in NODE_VERSIONS.iterkeys():
     print('{} is not supported node module version')

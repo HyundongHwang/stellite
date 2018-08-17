@@ -27,3 +27,12 @@
 **/.gradle/**
 **/.idea/**
 **/.externalNativeBuild/**
+
+**/build_*/**
+**/build/**
+**/output/**
+**/third_party/**
+.*
+CMakeCache.txt
+**/CMakeFiles/**
+cmake_install.cmake

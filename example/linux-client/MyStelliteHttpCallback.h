@@ -1,4 +1,8 @@
 #pragma once
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+#include <future>
 #include <string>
 #include <iostream>
 #include <stdio.h>
@@ -11,7 +15,7 @@
 class MyStelliteHttpCallback : public stellite::HttpResponseDelegate
 {
   public:
-    MyStelliteHttpCallback(std::promise<void> *pProm);
+    MyStelliteHttpCallback();
 
     virtual ~MyStelliteHttpCallback() {}
 
@@ -31,6 +35,7 @@ class MyStelliteHttpCallback : public stellite::HttpResponseDelegate
                      int error_code,
                      const std::string &error_message);
 
+    std::condition_variable* pCv;
+
   private:
-    std::promise<void>* _pProm;
 };

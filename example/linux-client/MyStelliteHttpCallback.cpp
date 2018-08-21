@@ -1,9 +1,8 @@
 #include "MyStelliteHttpCallback.h"
 
-MyStelliteHttpCallback::MyStelliteHttpCallback(std::promise<void>* pProm)
+MyStelliteHttpCallback::MyStelliteHttpCallback()
     : stellite::HttpResponseDelegate()
 {
-    _pProm = pProm;
 }
 
 void
@@ -18,9 +17,11 @@ MyStelliteHttpCallback::OnHttpResponse(int request_id, const stellite::HttpRespo
          response.connection_info
     );
 
-    printf("OnHttpResponse.OnHttpResponse body[%s]  \n",
-         body
-    );
+    // printf("OnHttpResponse.OnHttpResponse body[%s]  \n",
+    //      body
+    // );
+
+    pCv->notify_one();
 
 }
 
@@ -37,8 +38,10 @@ MyStelliteHttpCallback::OnHttpStream(int request_id, const stellite::HttpRespons
          response.connection_info
     );
 
-    printf("OnHttpResponse.OnHttpStream stream[%s] \n",
-         stream);
+    // printf("OnHttpResponse.OnHttpStream stream[%s] \n",
+    //      stream);
+
+    pCv->notify_one();
 }
 
 void
@@ -50,4 +53,6 @@ MyStelliteHttpCallback::OnHttpError(int request_id, int error_code,
          error_code,
          error_message.c_str()
     );
+
+    pCv->notify_one();
 }

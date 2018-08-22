@@ -31,6 +31,8 @@
 #include "net/android/net_jni_registrar.h"
 #endif
 
+#include "net/dns/mock_host_resolver.h"
+
 // Default cache size
 const char* kNetworkThreadName = "network thread";
 
@@ -68,6 +70,8 @@ class HttpClientContext::ContextImpl {
   HttpClientMap http_client_map_;
 
   DISALLOW_COPY_AND_ASSIGN(ContextImpl);
+  scoped_refptr<net::RuleBasedHostResolverProc> host_resolver_proc_;
+  net::ScopedDefaultHostResolverProc scoped_host_resolver_proc_;
 };
 
 base::AtExitManager HttpClientContext::ContextImpl::s_at_exit_manager_;
@@ -81,6 +85,23 @@ HttpClientContext::ContextImpl::~ContextImpl() {
 }
 
 bool HttpClientContext::ContextImpl::Init() {
+
+  if (context_params_.host_resolver_rules.size() > 0)
+  {
+    host_resolver_proc_ = new net::RuleBasedHostResolverProc(NULL);
+    //media.daum.net 을 gmarket으로 변경해 둔다.
+    //host_resolver_proc_->AddRule("media.daum.net", "183.111.134.78");
+
+    for (auto &kv : context_params_.host_resolver_rules)
+    {
+      auto host = kv.first;
+      auto ip = kv.second;
+      host_resolver_proc_->AddRule(host, ip);
+    }
+
+    scoped_host_resolver_proc_.Init(host_resolver_proc_.get());
+  }
+
   if (network_thread_.get()) {
     return false;
   }

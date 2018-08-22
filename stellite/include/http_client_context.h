@@ -17,6 +17,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 #if defined(ANDROID)
 #include <jni.h>
@@ -52,6 +53,8 @@ class STELLITE_EXPORT HttpClientContext {
     bool using_memory_cache;
     int max_cache_size;
     std::string disk_cache_path;
+
+    std::unordered_map<std::string, std::string> host_resolver_rules;
   };
 
   explicit HttpClientContext(const Params& params);

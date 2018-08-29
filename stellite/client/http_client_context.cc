@@ -61,6 +61,8 @@ class HttpClientContext::ContextImpl {
   const Params context_params_;
 
   static base::AtExitManager s_at_exit_manager_;
+  static scoped_refptr<net::RuleBasedHostResolverProc> host_resolver_proc_;
+  static net::ScopedDefaultHostResolverProc scoped_host_resolver_proc_;
 
   // all HTTP request are working on network thread
   std::unique_ptr<base::Thread> network_thread_;
@@ -70,11 +72,14 @@ class HttpClientContext::ContextImpl {
   HttpClientMap http_client_map_;
 
   DISALLOW_COPY_AND_ASSIGN(ContextImpl);
-  scoped_refptr<net::RuleBasedHostResolverProc> host_resolver_proc_;
-  net::ScopedDefaultHostResolverProc scoped_host_resolver_proc_;
+
+
 };
 
 base::AtExitManager HttpClientContext::ContextImpl::s_at_exit_manager_;
+scoped_refptr<net::RuleBasedHostResolverProc> HttpClientContext::ContextImpl::host_resolver_proc_ = nullptr;
+net::ScopedDefaultHostResolverProc HttpClientContext::ContextImpl::scoped_host_resolver_proc_;
+
 
 HttpClientContext::ContextImpl::ContextImpl(const Params& context_params)
     : context_params_(context_params) {
@@ -85,12 +90,8 @@ HttpClientContext::ContextImpl::~ContextImpl() {
 }
 
 bool HttpClientContext::ContextImpl::Init() {
-
-  if (context_params_.host_resolver_rules.size() > 0)
-  {
+  if(host_resolver_proc_ == nullptr && context_params_.host_resolver_rules.size() > 0) {
     host_resolver_proc_ = new net::RuleBasedHostResolverProc(NULL);
-    //media.daum.net 을 gmarket으로 변경해 둔다.
-    //host_resolver_proc_->AddRule("media.daum.net", "183.111.134.78");
 
     for (auto &kv : context_params_.host_resolver_rules)
     {
@@ -195,7 +196,8 @@ HttpClientContext::Params::Params()
 
 HttpClientContext::Params::Params(const Params& other) = default;
 
-HttpClientContext::Params::~Params() {}
+HttpClientContext::Params::~Params() {
+}
 
 // HttpClientContext -----------------------------------------------------------
 

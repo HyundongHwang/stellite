@@ -1,0 +1,838 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- https://github.com/a115/HTML-SVG-connect -->
+    <script src="https://hhdpublish.blob.core.windows.net/pub/LeaticIcible/jquery.html-svg-connect.js"></script>
+    <style>
+        pre {
+            color: white;
+            background-color: black;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .my-line-style {
+            stroke-dasharray: 3px;
+            stroke-width: 3px;
+        }
+
+        #svgContainer {
+            z-index: 10;
+            position: absolute;
+            pointer-events:none;
+        }
+    </style>
+    <script>
+
+        function connectAll() {
+            let paths = [];
+            let funcNameCallArray = $(".funcNameCall");
+
+            for (let i = 0; i < funcNameCallArray.length; i++) {
+                let caller = funcNameCallArray.eq(i);
+                let next = caller.parent().next();
+
+                for (let j = 0; j < 1000; j++) {
+                    if (next.find(".funcNameEnter").length > 0) {
+                        let callee = next.find(".funcNameEnter");
+                        if (callee.text() == caller.text()) {
+                            let callerClr = caller.css("color");
+                            caller.css("border-style", "solid").css("border-width", "1px");
+                            callee.css("border-style", "solid").css("border-width", "1px");
+                            paths.push({ start: caller, end: callee, stroke: callerClr });
+                            break;
+                        }
+                    }
+
+                    next = next.next();
+
+                    if (next.length == 0) {
+                        break;
+                    }
+                }
+            }
+
+
+            $("#svgContainer").HTMLSVGconnect({
+                orientation: "auto",
+                class: "my-line-style",
+                paths: paths,
+            });
+        }
+
+        $(function () {
+            console.log("hello jq");
+            connectAll();
+        });
+
+        $(window).resize(function () {
+            connectAll();
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <div id="svgContainer"></div>
+
+        <pre>
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from stellite
+[ RUN      ] stellite.get_tcp
+request.url[https://www.google.co.kr:443] 
+
+TID[-2104146642]
+<span style='color: Cyan;'>[10-19 15:34:21.334][    0ms] ·http_client_impl.cc:56:<span class='funcNameEnter'>Request</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-19 15:34:21.334][    0ms] ·:60 url[https://www.google.co.kr:443] request_type[0] timeout[3000]</span>
+<span style='color: Cyan;'>[10-19 15:34:21.334][    0ms] ·:62 http_fetcher_->Request(http_request, timeout, ...)</span>
+<span style='color: Cyan;'>[10-19 15:34:21.334][    0ms] ·:63 <span class='funcNameCall'>Request</span></span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.334][    0ms] ··http_fetcher.cc:46:<span class='funcNameEnter'>Request</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-19 15:34:21.334][    0ms] ··:51 GetTaskRunner()->PostTask HttpFetcher::StartRequest ( request_id[1] http_request timeout[3000] )</span>
+<span style='color: Magenta;'>[10-19 15:34:21.334][    0ms] ··:52 <span class='funcNameCall'>StartRequest</span></span>
+<span style='color: Magenta;'>[10-19 15:34:21.334][    0ms] ··:46 ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.334][    0ms] ·http_client_impl.cc:56:<span class='funcNameEnter'>Request</span> ↗↗↗</span>
+
+TID[2131466716]
+<span style='color: DarkGray;'>[10-19 15:34:21.334][    0ms]     ·http_fetcher.cc:79:<span class='funcNameEnter'>StartRequest</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.334][    0ms]     ·:80 request_id[1]</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.334][    0ms]     ·:96 task->Start(http_request, timeout[3000])</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.334][    0ms]     ·:97 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.334][    0ms]     ··http_fetcher_task.cc:54:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-19 15:34:21.334][    0ms]     ··:55 timeout_msec[3000]ms</span>
+<span style='color: Cyan;'>[10-19 15:34:21.335][    1ms]     ··:124 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.335][    0ms]     ···http_fetcher_impl.cc:174:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-19 15:34:21.335][    0ms]     ···:175 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.335][    0ms]     ····http_fetcher_core.cc:118:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-19 15:34:21.335][    0ms]     ····:132 network_task_runner_->PostTask HttpFetcherCore::StartOnIOThread</span>
+<span style='color: Cyan;'>[10-19 15:34:21.335][    0ms]     ····:133 <span class='funcNameCall'>StartOnIOThread</span></span>
+<span style='color: Cyan;'>[10-19 15:34:21.335][    0ms]     ····:118 ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.335][    0ms]     ···http_fetcher_impl.cc:174:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.335][    0ms]     ··http_fetcher_task.cc:129:<span class='funcNameEnter'>Start</span> timeout_msec_[3000]</span>
+<span style='color: Cyan;'>[10-19 15:34:21.335][    0ms]     ··:130 <span class='funcNameCall'>ResetTimeout</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.335][    0ms]     ··http_fetcher_task.cc:150:<span class='funcNameEnter'>ResetTimeout</span> timeout_msec[3000]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.335][    0ms]     ··:159 url_fetch_timeout_timer_->Start(timeout_msec[3000], HttpFetcherTask::OnFetchTimeout)</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.335][    0ms]     ··:160 url_fetch_timeout_timer_->Start(HttpFetcherTask::OnFetchTimeout)</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.335][    0ms]     ··:161 <span class='funcNameCall'>OnFetchTimeout</span></span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.335][    0ms]     ··http_fetcher_task.cc:54:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.335][    0ms]     ·http_fetcher.cc:79:<span class='funcNameEnter'>StartRequest</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.335][    0ms]     ·http_fetcher_core.cc:612:<span class='funcNameEnter'>StartOnIOThread</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.335][    0ms]     ·:626 response_writer_->Initialize HttpFetcherCore::DidInitializeWriter</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.335][    0ms]     ·:627 <span class='funcNameCall'>Initialize</span></span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.335][    0ms]     ·:628 <span class='funcNameCall'>DidInitializeWriter</span></span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.335][    0ms]     ·:632 result[0]</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.335][    0ms]     ·:636 result != ERR_IO_PENDING</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.335][    0ms]     ·:637 DidInitializeWriter(result[0])</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.335][    0ms]     ·:638 <span class='funcNameCall'>DidInitializeWriter</span></span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.335][    0ms]     ··http_fetcher_core.cc:764:<span class='funcNameEnter'>DidInitializeWriter</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.335][    0ms]     ··:765 result[0]</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.335][    0ms]     ··:773 <span class='funcNameCall'>StartURLRequestWhenAppropriate</span></span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.335][    0ms]     ···http_fetcher_core.cc:779:<span class='funcNameEnter'>StartURLRequestWhenAppropriate</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-19 15:34:21.335][    0ms]     ···:789 <span class='funcNameCall'>GetURLRequestContext</span></span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.335][    0ms]     ····http_request_context_getter.cc:402:<span class='funcNameEnter'>GetURLRequestContext</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.335][    0ms]     ····:405 if context_ empty</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.335][    0ms]     ····:406 <span class='funcNameCall'>BuildContext</span></span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.335][    0ms]     ·····http_request_context_getter.cc:163:<span class='funcNameEnter'>BuildContext</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.335][    0ms]     ·····:188 network_delegate_ not exist MakeUnique</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.335][    0ms]     ·····:201 host_resolver_ not exist HostResolver::CreateDefaultResolver</span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.336][    1ms]     ······dns_config_service.cc:29:<span class='funcNameEnter'>DnsConfig</span> ↘↘↘</span>
+<span style='color: Yellow;'>[10-19 15:34:21.336][    0ms]     ······:31 kDnsDefaultTimeoutMs[1000]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.336][    0ms]     ······:29 ↗↗↗</span>
+<span style='color: Yellow;'>[10-19 15:34:21.336][    0ms]     ······:29 ↘↘↘</span>
+<span style='color: Yellow;'>[10-19 15:34:21.336][    0ms]     ······:31 kDnsDefaultTimeoutMs[1000]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.336][    0ms]     ······:29 ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.336][    0ms]     ·····http_request_context_getter.cc:213:<span class='funcNameEnter'>BuildContext</span> proxy_service_ not exist ProxyService::CreateDirectWithNetLog</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.336][    0ms]     ·····:228 http_auth_handler_factory_ not exist HttpAuthHandlerRegistryFactory::CreateDefault</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.336][    0ms]     ·····:258 http_server_properties_ not exist MakeUnique HttpServerPropertiesImpl</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.336][    0ms]     ·····:270 cert_verifier_ not exist MakeUnique CertVerifier::CreateDefault</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.406][   70ms]     ·····:272 CertVerifier::CreateDefault finish</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.406][    0ms]     ·····:282 ct_verifier_ not exist MakeUnique MultiLogCTVerifier</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.408][    2ms]     ·····:293 params.throttling_enable true MakeUnique URLRequestThrottlerManager</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.408][    0ms]     ·····:356 set_http_network_session MakeUnique HttpNetworkSession(network_session_params)</span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.408][    0ms]     ······quic_config.cc:669:<span class='funcNameEnter'>SetDefaults</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.408][    0ms]     ······:672 idle_connection_state_lifetime_seconds_.set(kMaximumIdleTimeoutSecs[600] kDefaultIdleTimeoutSecs[30])</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.408][    0ms]     ······:681 max_time_before_crypto_handshake_[0]</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.408][    0ms]     ······:684 max_idle_time_before_crypto_handshake_[0]</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.408][    0ms]     ······:669 ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.408][    0ms]     ······quic_stream_factory.cc:889:<span class='funcNameEnter'>QuicStreamFactory</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-19 15:34:21.408][    0ms]     ······:889 ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.409][    1ms]     ······http_network_session.cc:208:<span class='funcNameEnter'>HttpNetworkSession</span> ↘↘↘</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.409][    0ms]     ·······client_socket_pool_base.cc:214:<span class='funcNameEnter'>ClientSocketPoolBaseHelper</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.409][    0ms]     ·······:215 unused_idle_socket_timeout[10000]ms</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.409][    0ms]     ·······:216 used_idle_socket_timeout[300000]ms</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.409][    0ms]     ·······:214 ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.409][    0ms]     ·······ssl_client_socket_pool.cc:543:<span class='funcNameEnter'>SSLConnectJobFactory</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.409][    0ms]     ·······:544 max_transport_timeout[240000]ms</span>
+<span style='color: Green;'>[10-19 15:34:21.409][    0ms]     ·······:545 pool_timeout[0]ms</span>
+<span style='color: Green;'>[10-19 15:34:21.409][    0ms]     ·······:546 timeout_[270000]ms</span>
+<span style='color: Green;'>[10-19 15:34:21.409][    0ms]     ·······:543 ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.409][    0ms]     ·······client_socket_pool_base.cc:214:<span class='funcNameEnter'>ClientSocketPoolBaseHelper</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.409][    0ms]     ·······:215 unused_idle_socket_timeout[10000]ms</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.409][    0ms]     ·······:216 used_idle_socket_timeout[300000]ms</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.409][    0ms]     ·······:214 ↗↗↗</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.410][    1ms]     ·······:214 ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.410][    0ms]     ·······:215 unused_idle_socket_timeout[10000]ms</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.410][    0ms]     ·······:216 used_idle_socket_timeout[300000]ms</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.410][    0ms]     ·······:214 ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.410][    0ms]     ·······ssl_client_socket_pool.cc:543:<span class='funcNameEnter'>SSLConnectJobFactory</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.410][    0ms]     ·······:544 max_transport_timeout[240000]ms</span>
+<span style='color: Green;'>[10-19 15:34:21.410][    0ms]     ·······:545 pool_timeout[0]ms</span>
+<span style='color: Green;'>[10-19 15:34:21.410][    0ms]     ·······:546 timeout_[270000]ms</span>
+<span style='color: Green;'>[10-19 15:34:21.410][    0ms]     ·······:543 ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.410][    0ms]     ·······client_socket_pool_base.cc:214:<span class='funcNameEnter'>ClientSocketPoolBaseHelper</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.410][    0ms]     ·······:215 unused_idle_socket_timeout[10000]ms</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.410][    0ms]     ·······:216 used_idle_socket_timeout[300000]ms</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.410][    0ms]     ·······:214 ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.410][    0ms]     ······http_network_session.cc:208:<span class='funcNameEnter'>HttpNetworkSession</span> ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.410][    0ms]     ·····http_request_context_getter.cc:386:<span class='funcNameEnter'>BuildContext</span> cache_max_size = 0</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.410][    0ms]     ·····:396 finish build context</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.410][    0ms]     ·····:163 ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.410][    0ms]     ····http_request_context_getter.cc:402:<span class='funcNameEnter'>GetURLRequestContext</span> ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.410][    0ms]     ···http_fetcher_core.cc:818:<span class='funcNameEnter'>StartURLRequestWhenAppropriate</span> <span class='funcNameCall'>StartURLRequest</span></span>
+
+<span style='color: Gray;'>[10-19 15:34:21.410][    0ms]     ····http_fetcher_core.cc:645:<span class='funcNameEnter'>StartURLRequest</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-19 15:34:21.410][    0ms]     ····:655 request_context_getter_->GetURLRequestContext()</span>
+<span style='color: Gray;'>[10-19 15:34:21.410][    0ms]     ····:657 <span class='funcNameCall'>GetURLRequestContext</span></span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.410][    0ms]     ·····http_request_context_getter.cc:402:<span class='funcNameEnter'>GetURLRequestContext</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.411][    1ms]     ·····:402 ↗↗↗</span>
+
+<span style='color: Gray;'>[10-19 15:34:21.411][    0ms]     ····http_fetcher_core.cc:670:<span class='funcNameEnter'>StartURLRequest</span> <span class='funcNameCall'>CreateRequest</span></span>
+<span style='color: Gray;'>[10-19 15:34:21.411][    0ms]     ····:671 <span class='funcNameCall'>GetURLRequestContext</span></span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.411][    0ms]     ·····http_request_context_getter.cc:402:<span class='funcNameEnter'>GetURLRequestContext</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.411][    0ms]     ·····:402 ↗↗↗</span>
+
+<span style='color: Gray;'>[10-19 15:34:21.411][    0ms]     ····http_fetcher_core.cc:758:<span class='funcNameEnter'>StartURLRequest</span> <span class='funcNameCall'>Start</span></span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.411][    0ms]     ·····url_request.cc:572:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.411][    0ms]     ·····:609 BeforeRequestComplete(error[0])</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.411][    0ms]     ·····:610 <span class='funcNameCall'>BeforeRequestComplete</span></span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.411][    0ms]     ······url_request.cc:665:<span class='funcNameEnter'>BeforeRequestComplete</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-19 15:34:21.412][    1ms]     ······:694 StartJob(URLRequestJobManager::GetInstance()->CreateJob(network_delegate_)</span>
+<span style='color: Cyan;'>[10-19 15:34:21.412][    0ms]     ······:695 <span class='funcNameCall'>CreateJob</span></span>
+<span style='color: Cyan;'>[10-19 15:34:21.412][    0ms]     ······:696 <span class='funcNameCall'>StartJob</span></span>
+
+<span style='color: Green;'>[10-19 15:34:21.412][    0ms]     ·······url_request.cc:704:<span class='funcNameEnter'>StartJob</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.412][    0ms]     ·······:760 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: Green;'>[10-19 15:34:21.412][    0ms]     ········url_request_http_job.cc:402:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.412][    0ms]     ········:446 <span class='funcNameCall'>AddCookieHeaderAndStart</span></span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.413][    1ms]     ·········url_request_http_job.cc:859:<span class='funcNameEnter'>AddCookieHeaderAndStart</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.414][    1ms]     ·········:906 cookie_store->GetCookieListWithOptionsAsync(request_->url(), URLRequestHttpJob::SetCookieHeaderAndStart)</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.414][    0ms]     ·········:907 <span class='funcNameCall'>GetCookieListWithOptionsAsync</span></span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.414][    0ms]     ·········:908 <span class='funcNameCall'>SetCookieHeaderAndStart</span></span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.414][    0ms]     ··········url_request_http_job.cc:922:<span class='funcNameEnter'>SetCookieHeaderAndStart</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.414][    0ms]     ··········:930 <span class='funcNameCall'>DoStartTransaction</span></span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.414][    0ms]     ···········url_request_http_job.cc:936:<span class='funcNameEnter'>DoStartTransaction</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.415][    1ms]     ···········:940 <span class='funcNameCall'>StartTransaction</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.415][    0ms]     ············url_request_http_job.cc:604:<span class='funcNameEnter'>StartTransaction</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.415][    0ms]     ············:620 MaybeStartTransactionInternal(rv[0])</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.415][    0ms]     ············:621 <span class='funcNameCall'>MaybeStartTransactionInternal</span></span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.415][    0ms]     ·············url_request_http_job.cc:638:<span class='funcNameEnter'>MaybeStartTransactionInternal</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.415][    0ms]     ·············:647 if (result == OK)</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.415][    0ms]     ·············:648 <span class='funcNameCall'>StartTransactionInternal</span></span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.415][    0ms]     ·············url_request_http_job.cc:720:<span class='funcNameEnter'>StartTransactionInternal</span> <span class='funcNameCall'>Start</span></span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.415][    0ms]     ··············http_network_transaction.cc:145:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.415][    0ms]     ··············:162 <span class='funcNameCall'>DoLoop</span></span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.415][    0ms]     ···············http_network_transaction.cc:723:<span class='funcNameEnter'>DoLoop</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-19 15:34:21.415][    0ms]     ···············:724 result[0]</span>
+<span style='color: Magenta;'>[10-19 15:34:21.415][    0ms]     ···············:740 <span class='funcNameCall'>DoCreateStream</span></span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.416][    1ms]     ················http_network_transaction.cc:863:<span class='funcNameEnter'>DoCreateStream</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.416][    0ms]     ················:889 stream_request_.reset(...)</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.416][    0ms]     ················:890 <span class='funcNameCall'>RequestStream</span></span>
+
+<span style='color: Gray;'>[10-19 15:34:21.416][    0ms]     ·················http_stream_factory_impl.cc:108:<span class='funcNameEnter'>RequestStream</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-19 15:34:21.416][    0ms]     ·················:112 <span class='funcNameCall'>RequestStreamInternal</span></span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.416][    0ms]     ··················http_stream_factory_impl.cc:160:<span class='funcNameEnter'>RequestStreamInternal</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.416][    0ms]     ··················:166 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.416][    0ms]     ···················http_stream_factory_impl_job_controller.cc:85:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.416][    0ms]     ···················:94 <span class='funcNameCall'>CreateJobs</span></span>
+
+<span style='color: Green;'>[10-19 15:34:21.416][    0ms]     ····················http_stream_factory_impl_job_controller.cc:722:<span class='funcNameEnter'>CreateJobs</span> ↘↘↘</span>
+
+<span style='color: Green;'>[10-19 15:34:21.417][    1ms]     ·····················http_network_session.h:244:<span class='funcNameEnter'>quic_stream_factory</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.417][    0ms]     ·····················:244 ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.418][    1ms]     ····················http_stream_factory_impl_job_controller.cc:766:<span class='funcNameEnter'>CreateJobs</span> <span class='funcNameCall'>Start</span></span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.418][    0ms]     ·····················http_stream_factory_impl_job.cc:284:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-19 15:34:21.418][    0ms]     ·····················:285 stream_type[1]</span>
+<span style='color: Magenta;'>[10-19 15:34:21.418][    0ms]     ·····················:286 BIDIRECTIONAL_STREAM[0] HTTP_STREAM[1]</span>
+<span style='color: Magenta;'>[10-19 15:34:21.418][    0ms]     ·····················:288 <span class='funcNameCall'>StartInternal</span></span>
+
+<span style='color: Gray;'>[10-19 15:34:21.418][    0ms]     ······················http_stream_factory_impl_job.cc:859:<span class='funcNameEnter'>StartInternal</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-19 15:34:21.418][    0ms]     ······················:862 <span class='funcNameCall'>RunLoop</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.419][    1ms]     ·······················http_stream_factory_impl_job.cc:595:<span class='funcNameEnter'>RunLoop</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.419][    0ms]     ·······················:596 result[0]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.419][    0ms]     ·······················:600 result = DoLoop(result[0]);</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.419][    0ms]     ·······················:601 <span class='funcNameCall'>DoLoop</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.419][    0ms]     ························http_stream_factory_impl_job.cc:778:<span class='funcNameEnter'>DoLoop</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.419][    0ms]     ························:779 result[0]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.419][    0ms]     ························:787 loop start result[0] state[0]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.419][    0ms]     ························:793 <span class='funcNameCall'>DoStart</span></span>
+
+<span style='color: Gray;'>[10-19 15:34:21.419][    0ms]     ·························http_stream_factory_impl_job.cc:870:<span class='funcNameEnter'>DoStart</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-19 15:34:21.419][    0ms]     ·························:875 BeginEvent HTTP_STREAM_JOB NetLogHttpStreamJobCallback</span>
+<span style='color: Gray;'>[10-19 15:34:21.419][    0ms]     ·························:883 AddEvent HTTP_STREAM_REQUEST_STARTED_JOB ToEventParametersCallback</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.419][    0ms]     ··························port_util.cc:113:<span class='funcNameEnter'>IsPortAllowedForScheme</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.419][    0ms]     ··························:114 port[443]</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.419][    0ms]     ··························:115 url_scheme[https]</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.419][    0ms]     ··························:160 return true;</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.419][    0ms]     ··························:113 ↗↗↗</span>
+
+<span style='color: Gray;'>[10-19 15:34:21.420][    1ms]     ·························http_stream_factory_impl_job.cc:897:<span class='funcNameEnter'>DoStart</span> next_state_ = STATE_RESOLVE_PROXY</span>
+<span style='color: Gray;'>[10-19 15:34:21.420][    0ms]     ·························:870 ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.420][    0ms]     ························http_stream_factory_impl_job.cc:851:<span class='funcNameEnter'>DoLoop</span> rv[0] next_state_[1]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.420][    0ms]     ························:787 loop start result[0] state[1]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.420][    0ms]     ························:798 <span class='funcNameCall'>DoResolveProxy</span></span>
+
+<span style='color: Green;'>[10-19 15:34:21.420][    0ms]     ·························http_stream_factory_impl_job.cc:904:<span class='funcNameEnter'>DoResolveProxy</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.420][    0ms]     ·························:904 ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.420][    0ms]     ························http_stream_factory_impl_job.cc:851:<span class='funcNameEnter'>DoLoop</span> rv[0] next_state_[2]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.420][    0ms]     ························:787 loop start result[0] state[2]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.420][    0ms]     ························:802 <span class='funcNameCall'>DoResolveProxyComplete</span></span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.420][    0ms]     ·························http_stream_factory_impl_job.cc:930:<span class='funcNameEnter'>DoResolveProxyComplete</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-19 15:34:21.420][    0ms]     ·························:931 result[0]</span>
+<span style='color: Magenta;'>[10-19 15:34:21.420][    0ms]     ·························:930 ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.420][    0ms]     ························http_stream_factory_impl_job.cc:851:<span class='funcNameEnter'>DoLoop</span> rv[0] next_state_[3]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.420][    0ms]     ························:787 loop start result[0] state[3]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.420][    0ms]     ························:807 <span class='funcNameCall'>DoWait</span></span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.420][    0ms]     ·························http_stream_factory_impl_job.cc:1005:<span class='funcNameEnter'>DoWait</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.420][    0ms]     ·························:1005 ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.420][    0ms]     ························http_stream_factory_impl_job.cc:851:<span class='funcNameEnter'>DoLoop</span> rv[0] next_state_[4]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.420][    0ms]     ························:787 loop start result[0] state[4]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.423][    3ms]     ························:811 <span class='funcNameCall'>DoWaitComplete</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.423][    0ms]     ·························http_stream_factory_impl_job.cc:1015:<span class='funcNameEnter'>DoWaitComplete</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.423][    0ms]     ·························:1016 result[0]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.423][    0ms]     ·························:1015 ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.423][    0ms]     ························http_stream_factory_impl_job.cc:851:<span class='funcNameEnter'>DoLoop</span> rv[0] next_state_[5]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.423][    0ms]     ························:787 loop start result[0] state[5]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.423][    0ms]     ························:816 <span class='funcNameCall'>DoInitConnection</span></span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.423][    0ms]     ·························http_stream_factory_impl_job.cc:1024:<span class='funcNameEnter'>DoInitConnection</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.423][    0ms]     ·························:1025 <span class='funcNameCall'>DoInitConnectionImpl</span></span>
+
+<span style='color: Gray;'>[10-19 15:34:21.423][    0ms]     ··························http_stream_factory_impl_job.cc:1039:<span class='funcNameEnter'>DoInitConnectionImpl</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-19 15:34:21.423][    0ms]     ··························:1053 using_ssl_[1] using_spdy_[0]</span>
+<span style='color: Gray;'>[10-19 15:34:21.423][    0ms]     ··························:1054 <span class='funcNameCall'>ShouldForceQuic</span></span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.423][    0ms]     ···························http_stream_factory_impl_job.cc:978:<span class='funcNameEnter'>ShouldForceQuic</span> ↘↘↘</span>
+<span style='color: Yellow;'>[10-19 15:34:21.423][    0ms]     ···························:979 session_->params().enable_quic[0]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.423][    0ms]     ···························:980 proxy_info_.is_direct()[1]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.423][    0ms]     ···························:981 origin_url_.SchemeIs(url::kHttpsScheme)[1]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.423][    0ms]     ···························:988 HostPortPair()[:0]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.423][    0ms]     ···························:989 destination_[www.google.co.kr:443]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.423][    0ms]     ···························:998 res[0]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.423][    0ms]     ···························:978 ↗↗↗</span>
+
+<span style='color: Gray;'>[10-19 15:34:21.423][    0ms]     ··························http_stream_factory_impl_job.cc:1081:<span class='funcNameEnter'>DoInitConnectionImpl</span> using_ssl_ true InitSSLConfig</span>
+<span style='color: Gray;'>[10-19 15:34:21.423][    0ms]     ··························:1174 CanUseExistingSpdySession true session_->spdy_session_pool()->FindAvailableSession</span>
+<span style='color: Gray;'>[10-19 15:34:21.424][    1ms]     ··························:1200 using_ssl_ true SetSpdySessionKey</span>
+<span style='color: Gray;'>[10-19 15:34:21.424][    0ms]     ··························:1218 http_server_properties exist call MaybeForceHTTP11</span>
+<span style='color: Gray;'>[10-19 15:34:21.424][    0ms]     ··························:1267 <span class='funcNameCall'>InitSocketHandleForHttpRequest</span></span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.424][    0ms]     ···························client_socket_pool_manager.cc:397:<span class='funcNameEnter'>InitSocketHandleForHttpRequest</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.424][    0ms]     ···························:401 <span class='funcNameCall'>InitSocketPoolHelper</span></span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.424][    0ms]     ····························client_socket_pool_manager.cc:89:<span class='funcNameEnter'>InitSocketPoolHelper</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-19 15:34:21.424][    0ms]     ····························:246 return socket_handle->Init(connection_group[ssl/www.google.co.kr:443]</span>
+<span style='color: Magenta;'>[10-19 15:34:21.424][    0ms]     ····························:247 <span class='funcNameCall'>Init</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ·····························client_socket_handle.h:242:<span class='funcNameEnter'>Init</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ·····························:251 rv = pool_->RequestSocket(group_name[ssl/www.google.co.kr:443], ...)</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ·····························:252 <span class='funcNameCall'>RequestSocket</span></span>
+
+<span style='color: Gray;'>[10-19 15:34:21.424][    0ms]     ······························client_socket_pool_base.h:754:<span class='funcNameEnter'>RequestSocket</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-19 15:34:21.424][    0ms]     ······························:760 return helper_.RequestSocket(group_name[ssl/www.google.co.kr:443], request)</span>
+<span style='color: Gray;'>[10-19 15:34:21.424][    0ms]     ······························:761 <span class='funcNameCall'>RequestSocket</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ·······························client_socket_pool_base.cc:322:<span class='funcNameEnter'>RequestSocket</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ·······························:332 rv = RequestSocketInternal(group_name[ssl/www.google.co.kr:443], request)</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ·······························:333 <span class='funcNameCall'>RequestSocketInternal</span></span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.424][    0ms]     ································client_socket_pool_base.cc:423:<span class='funcNameEnter'>RequestSocketInternal</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.424][    0ms]     ································:424 group_name[ssl/www.google.co.kr:443]</span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.424][    0ms]     ·································client_socket_pool_base.cc:56:<span class='funcNameEnter'>ConnectJob</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.424][    0ms]     ·································:57 timeout_duration[270000]ms</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.424][    0ms]     ·································:56 ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.424][    0ms]     ·································ssl_client_socket_pool.cc:136:<span class='funcNameEnter'>SSLConnectJob</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.424][    0ms]     ·································:137 timeout_duration[270000]ms</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.424][    0ms]     ·································:138 kSSLHandshakeTimeoutInSeconds[30]s</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.424][    0ms]     ·································:136 ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.424][    0ms]     ································client_socket_pool_base.cc:484:<span class='funcNameEnter'>RequestSocketInternal</span> rv = connect_job->Connect()</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.424][    0ms]     ································:485 <span class='funcNameCall'>Connect</span></span>
+
+<span style='color: Green;'>[10-19 15:34:21.424][    0ms]     ·································client_socket_pool_base.cc:76:<span class='funcNameEnter'>Connect</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.424][    0ms]     ·································:77 timeout_duration_[270000]ms</span>
+<span style='color: Green;'>[10-19 15:34:21.424][    0ms]     ·································:81 timer_.Start(... ConnectJob::OnTimeout)</span>
+<span style='color: Green;'>[10-19 15:34:21.424][    0ms]     ·································:89 rv = ConnectInternal()</span>
+<span style='color: Green;'>[10-19 15:34:21.424][    0ms]     ·································:90 <span class='funcNameCall'>ConnectInternal</span></span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.424][    0ms]     ··································ssl_client_socket_pool.cc:507:<span class='funcNameEnter'>ConnectInternal</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-19 15:34:21.424][    0ms]     ··································:509 <span class='funcNameCall'>DoLoop</span></span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.424][    0ms]     ···································ssl_client_socket_pool.cc:190:<span class='funcNameEnter'>DoLoop</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.424][    0ms]     ···································:191 result[0]</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.424][    0ms]     ···································:202 <span class='funcNameCall'>DoTransportConnect</span></span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.424][    0ms]     ····································ssl_client_socket_pool.cc:248:<span class='funcNameEnter'>DoTransportConnect</span> ↘↘↘</span>
+<span style='color: Yellow;'>[10-19 15:34:21.424][    0ms]     ····································:256 return transport_socket_handle_->Init(...)</span>
+<span style='color: Yellow;'>[10-19 15:34:21.424][    0ms]     ····································:257 <span class='funcNameCall'>Init</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ·····································client_socket_handle.h:242:<span class='funcNameEnter'>Init</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ·····································:251 rv = pool_->RequestSocket(group_name[ssl/www.google.co.kr:443], ...)</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ·····································:252 <span class='funcNameCall'>RequestSocket</span></span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.424][    0ms]     ······································transport_client_socket_pool.cc:663:<span class='funcNameEnter'>RequestSocket</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.424][    0ms]     ······································:669 return base_.RequestSocket(group_name[ssl/www.google.co.kr:443]...)</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.424][    0ms]     ······································:670 <span class='funcNameCall'>RequestSocket</span></span>
+
+<span style='color: Gray;'>[10-19 15:34:21.424][    0ms]     ·······································client_socket_pool_base.h:754:<span class='funcNameEnter'>RequestSocket</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-19 15:34:21.424][    0ms]     ·······································:760 return helper_.RequestSocket(group_name[ssl/www.google.co.kr:443], request)</span>
+<span style='color: Gray;'>[10-19 15:34:21.424][    0ms]     ·······································:761 <span class='funcNameCall'>RequestSocket</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ········································client_socket_pool_base.cc:322:<span class='funcNameEnter'>RequestSocket</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ········································:332 rv = RequestSocketInternal(group_name[ssl/www.google.co.kr:443], request)</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.424][    0ms]     ········································:333 <span class='funcNameCall'>RequestSocketInternal</span></span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.425][    1ms]     ·········································client_socket_pool_base.cc:423:<span class='funcNameEnter'>RequestSocketInternal</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.425][    0ms]     ·········································:424 group_name[ssl/www.google.co.kr:443]</span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.425][    0ms]     ··········································client_socket_pool_base.cc:56:<span class='funcNameEnter'>ConnectJob</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.425][    0ms]     ··········································:57 timeout_duration[240000]ms</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.425][    0ms]     ··········································:56 ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.425][    0ms]     ··········································transport_client_socket_pool.cc:130:<span class='funcNameEnter'>TransportConnectJob</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.425][    0ms]     ··········································:131 timeout_duration[240000]ms</span>
+<span style='color: Green;'>[10-19 15:34:21.425][    0ms]     ··········································:130 ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.425][    0ms]     ·········································client_socket_pool_base.cc:484:<span class='funcNameEnter'>RequestSocketInternal</span> rv = connect_job->Connect()</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.425][    0ms]     ·········································:485 <span class='funcNameCall'>Connect</span></span>
+
+<span style='color: Green;'>[10-19 15:34:21.425][    0ms]     ··········································client_socket_pool_base.cc:76:<span class='funcNameEnter'>Connect</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.425][    0ms]     ··········································:77 timeout_duration_[240000]ms</span>
+<span style='color: Green;'>[10-19 15:34:21.425][    0ms]     ··········································:81 timer_.Start(... ConnectJob::OnTimeout)</span>
+<span style='color: Green;'>[10-19 15:34:21.425][    0ms]     ··········································:89 rv = ConnectInternal()</span>
+<span style='color: Green;'>[10-19 15:34:21.425][    0ms]     ··········································:90 <span class='funcNameCall'>ConnectInternal</span></span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.425][    0ms]     ···········································transport_client_socket_pool.cc:596:<span class='funcNameEnter'>ConnectInternal</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.425][    0ms]     ···········································:598 return DoLoop(OK)</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.425][    0ms]     ···········································:599 <span class='funcNameCall'>DoLoop</span></span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.425][    0ms]     ············································transport_client_socket_pool.cc:267:<span class='funcNameEnter'>DoLoop</span> ↘↘↘</span>
+<span style='color: Yellow;'>[10-19 15:34:21.425][    0ms]     ············································:268 result[0]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.425][    0ms]     ············································:276 loop start state[0]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.425][    0ms]     ············································:280 STATE_RESOLVE_HOST DoResolveHost</span>
+<span style='color: Yellow;'>[10-19 15:34:21.425][    0ms]     ············································:282 <span class='funcNameCall'>DoResolveHost</span></span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.425][    0ms]     ·············································transport_client_socket_pool.cc:314:<span class='funcNameEnter'>DoResolveHost</span> ↘↘↘</span>
+<span style='color: Yellow;'>[10-19 15:34:21.425][    0ms]     ·············································:323 return resolver_->Resolve(TransportConnectJob::OnIOComplete ...</span>
+<span style='color: Yellow;'>[10-19 15:34:21.425][    0ms]     ·············································:324 <span class='funcNameCall'>Resolve</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.425][    0ms]     ··············································host_resolver_impl.cc:2215:<span class='funcNameEnter'>Resolve</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.425][    0ms]     ··············································:2256 job->Schedule(false);</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.425][    0ms]     ··············································:2257 <span class='funcNameCall'>Schedule</span></span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.425][    0ms]     ···············································host_resolver_impl.cc:1529:<span class='funcNameEnter'>Schedule</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-19 15:34:21.425][    0ms]     ···············································:1530 at_head[0]</span>
+<span style='color: Magenta;'>[10-19 15:34:21.425][    0ms]     ···············································:1535 resolver_->dispatcher_->Add(this, priority());</span>
+<span style='color: Magenta;'>[10-19 15:34:21.425][    0ms]     ···············································:1536 <span class='funcNameCall'>Add</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.425][    0ms]     ················································prioritized_dispatcher.cc:31:<span class='funcNameEnter'>Add</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.425][    0ms]     ················································:36 job->Start();</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.425][    0ms]     ················································:37 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.425][    0ms]     ·················································host_resolver_impl.cc:1744:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.425][    0ms]     ·················································:1792 <span class='funcNameCall'>StartProcTask</span></span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.425][    0ms]     ··················································host_resolver_impl.cc:1803:<span class='funcNameEnter'>StartProcTask</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-19 15:34:21.425][    0ms]     ··················································:1815 proc_task_->Start();</span>
+<span style='color: Magenta;'>[10-19 15:34:21.425][    0ms]     ··················································:1816 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.425][    0ms]     ···················································host_resolver_impl.cc:731:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.425][    0ms]     ···················································:734 <span class='funcNameCall'>StartLookupAttempt</span></span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.425][    0ms]     ····················································host_resolver_impl.cc:776:<span class='funcNameEnter'>StartLookupAttempt</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.425][    0ms]     ····················································:780 worker_task_runner_->PostTask(DoLookup, start_time[-1444860087], attempt_number_[1])</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.425][    0ms]     ····················································:781 <span class='funcNameCall'>DoLookup</span></span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.425][    0ms]     ····················································:809 params_.unresponsive_delay[6000]</span>
+
+TID[-378707861]
+<span style='color: Magenta;'>[10-19 15:34:21.427][    2ms]         ·host_resolver_impl.cc:825:<span class='funcNameEnter'>DoLookup</span> ↘↘↘</span>
+
+TID[2131466716]
+<span style='color: DarkCyan;'>[10-19 15:34:21.427][    0ms]     ····················································host_resolver_impl.cc:776:<span class='funcNameEnter'>StartLookupAttempt</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.427][    0ms]     ···················································host_resolver_impl.cc:731:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+TID[-378707861]
+<span style='color: DarkYellow;'>[10-19 15:34:21.427][    0ms]         ··host_resolver_proc.cc:147:<span class='funcNameEnter'>SystemHostResolverCall</span> ↘↘↘</span>
+
+TID[2131466716]
+<span style='color: Magenta;'>[10-19 15:34:21.427][    0ms]     ··················································host_resolver_impl.cc:1803:<span class='funcNameEnter'>StartProcTask</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.427][    0ms]     ·················································host_resolver_impl.cc:1744:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.427][    0ms]     ················································prioritized_dispatcher.cc:31:<span class='funcNameEnter'>Add</span> ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.427][    0ms]     ···············································host_resolver_impl.cc:1529:<span class='funcNameEnter'>Schedule</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.427][    0ms]     ··············································host_resolver_impl.cc:2215:<span class='funcNameEnter'>Resolve</span> ↗↗↗</span>
+
+TID[-378707861]
+<span style='color: DarkYellow;'>[10-19 15:34:21.427][    0ms]         ··host_resolver_proc.cc:165:<span class='funcNameEnter'>SystemHostResolverCall</span> address_family[0]</span>
+
+TID[2131466716]
+<span style='color: Yellow;'>[10-19 15:34:21.427][    0ms]     ·············································transport_client_socket_pool.cc:314:<span class='funcNameEnter'>DoResolveHost</span> ↗↗↗</span>
+
+TID[-378707861]
+<span style='color: DarkYellow;'>[10-19 15:34:21.427][    0ms]         ··host_resolver_proc.cc:225:<span class='funcNameEnter'>SystemHostResolverCall</span> DnsReloaderMaybeReload</span>
+
+TID[2131466716]
+<span style='color: Yellow;'>[10-19 15:34:21.427][    0ms]     ············································transport_client_socket_pool.cc:309:<span class='funcNameEnter'>DoLoop</span> return rv[-1]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.427][    0ms]     ············································:267 ↗↗↗</span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.427][    0ms]     ···········································transport_client_socket_pool.cc:596:<span class='funcNameEnter'>ConnectInternal</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.427][    0ms]     ··········································client_socket_pool_base.cc:76:<span class='funcNameEnter'>Connect</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.427][    0ms]     ·········································client_socket_pool_base.cc:487:<span class='funcNameEnter'>RequestSocketInternal</span> rv[-1] = connect_job->Connect()</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.427][    0ms]     ·········································:496 connect_job->connect_timing() connect_start[15735008473] connect_end[0] dns_start[15735008621] dns_end[0] ssl_start[0] ssl_end[0] base::TimeDelta[0]</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.427][    0ms]     ·········································:519 else if (rv == ERR_IO_PENDING)</span>
+
+TID[-378707861]
+<span style='color: Yellow;'>[10-19 15:34:21.428][    1ms]         ···dns_reloader.cc:59:<span class='funcNameEnter'>MaybeReload</span> ↘↘↘</span>
+
+TID[2131466716]
+<span style='color: DarkCyan;'>[10-19 15:34:21.428][    0ms]     ·········································client_socket_pool_base.cc:525:<span class='funcNameEnter'>RequestSocketInternal</span> <span class='funcNameCall'>StartBackupJobTimer</span></span>
+
+TID[-378707861]
+<span style='color: Yellow;'>[10-19 15:34:21.428][    0ms]         ···dns_reloader.cc:66:<span class='funcNameEnter'>MaybeReload</span> res_ninit</span>
+
+TID[2131466716]
+<span style='color: Cyan;'>[10-19 15:34:21.428][    0ms]     ··········································client_socket_pool_base.cc:1397:<span class='funcNameEnter'>StartBackupJobTimer</span> ↘↘↘</span>
+
+TID[-378707861]
+<span style='color: Yellow;'>[10-19 15:34:21.428][    0ms]         ···dns_reloader.cc:68:<span class='funcNameEnter'>MaybeReload</span> tls_index_.Set</span>
+<span style='color: Yellow;'>[10-19 15:34:21.428][    0ms]         ···:59 ↗↗↗</span>
+
+TID[2131466716]
+<span style='color: Cyan;'>[10-19 15:34:21.428][    0ms]     ··········································client_socket_pool_base.cc:1403:<span class='funcNameEnter'>StartBackupJobTimer</span> backup_job_timer_.Start(... pool->ConnectRetryInterval()[250]ms Group::OnBackupJobTimerFired))</span>
+<span style='color: Cyan;'>[10-19 15:34:21.428][    0ms]     ··········································:1397 ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.428][    0ms]     ·········································client_socket_pool_base.cc:423:<span class='funcNameEnter'>RequestSocketInternal</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.428][    0ms]     ········································client_socket_pool_base.cc:322:<span class='funcNameEnter'>RequestSocket</span> ↗↗↗</span>
+
+<span style='color: Gray;'>[10-19 15:34:21.428][    0ms]     ·······································client_socket_pool_base.h:754:<span class='funcNameEnter'>RequestSocket</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.428][    0ms]     ······································transport_client_socket_pool.cc:663:<span class='funcNameEnter'>RequestSocket</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.428][    0ms]     ·····································client_socket_handle.h:242:<span class='funcNameEnter'>Init</span> ↗↗↗</span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.428][    0ms]     ····································ssl_client_socket_pool.cc:248:<span class='funcNameEnter'>DoTransportConnect</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.428][    0ms]     ···································ssl_client_socket_pool.cc:190:<span class='funcNameEnter'>DoLoop</span> ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.428][    0ms]     ··································ssl_client_socket_pool.cc:507:<span class='funcNameEnter'>ConnectInternal</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.428][    0ms]     ·································client_socket_pool_base.cc:76:<span class='funcNameEnter'>Connect</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.428][    0ms]     ································client_socket_pool_base.cc:487:<span class='funcNameEnter'>RequestSocketInternal</span> rv[-1] = connect_job->Connect()</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.428][    0ms]     ································:496 connect_job->connect_timing() connect_start[15735007827] connect_end[0] dns_start[0] dns_end[0] ssl_start[0] ssl_end[0] base::TimeDelta[0]</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.428][    0ms]     ································:519 else if (rv == ERR_IO_PENDING)</span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.428][    0ms]     ································:423 ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.428][    0ms]     ·······························client_socket_pool_base.cc:322:<span class='funcNameEnter'>RequestSocket</span> ↗↗↗</span>
+
+<span style='color: Gray;'>[10-19 15:34:21.428][    0ms]     ······························client_socket_pool_base.h:754:<span class='funcNameEnter'>RequestSocket</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.428][    0ms]     ·····························client_socket_handle.h:242:<span class='funcNameEnter'>Init</span> ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.428][    0ms]     ····························client_socket_pool_manager.cc:89:<span class='funcNameEnter'>InitSocketPoolHelper</span> ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.428][    0ms]     ···························client_socket_pool_manager.cc:397:<span class='funcNameEnter'>InitSocketHandleForHttpRequest</span> ↗↗↗</span>
+
+<span style='color: Gray;'>[10-19 15:34:21.428][    0ms]     ··························http_stream_factory_impl_job.cc:1039:<span class='funcNameEnter'>DoInitConnectionImpl</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.428][    0ms]     ·························http_stream_factory_impl_job.cc:1028:<span class='funcNameEnter'>DoInitConnection</span> result[-1]</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.428][    0ms]     ·························:1031 <span class='funcNameCall'>OnConnectionInitialized</span></span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.428][    0ms]     ·························:1024 ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.428][    0ms]     ························http_stream_factory_impl_job.cc:851:<span class='funcNameEnter'>DoLoop</span> rv[-1] next_state_[6]</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.428][    0ms]     ························:778 ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.428][    0ms]     ·······················http_stream_factory_impl_job.cc:605:<span class='funcNameEnter'>RunLoop</span> result[-1] = DoLoop(result);</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.428][    0ms]     ·······················:609 result == ERR_IO_PENDING return ERR_IO_PENDING</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.428][    0ms]     ·······················:595 ↗↗↗</span>
+
+<span style='color: Gray;'>[10-19 15:34:21.428][    0ms]     ······················http_stream_factory_impl_job.cc:859:<span class='funcNameEnter'>StartInternal</span> ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.428][    0ms]     ·····················http_stream_factory_impl_job.cc:284:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.428][    0ms]     ····················http_stream_factory_impl_job_controller.cc:722:<span class='funcNameEnter'>CreateJobs</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.428][    0ms]     ···················http_stream_factory_impl_job_controller.cc:85:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.428][    0ms]     ··················http_stream_factory_impl.cc:160:<span class='funcNameEnter'>RequestStreamInternal</span> ↗↗↗</span>
+
+<span style='color: Gray;'>[10-19 15:34:21.428][    0ms]     ·················http_stream_factory_impl.cc:108:<span class='funcNameEnter'>RequestStream</span> ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.428][    0ms]     ················http_network_transaction.cc:863:<span class='funcNameEnter'>DoCreateStream</span> ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.428][    0ms]     ···············http_network_transaction.cc:723:<span class='funcNameEnter'>DoLoop</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.428][    0ms]     ··············http_network_transaction.cc:145:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.428][    0ms]     ·············url_request_http_job.cc:638:<span class='funcNameEnter'>MaybeStartTransactionInternal</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.428][    0ms]     ············url_request_http_job.cc:604:<span class='funcNameEnter'>StartTransaction</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.428][    0ms]     ···········url_request_http_job.cc:936:<span class='funcNameEnter'>DoStartTransaction</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.428][    0ms]     ··········url_request_http_job.cc:922:<span class='funcNameEnter'>SetCookieHeaderAndStart</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.428][    0ms]     ·········url_request_http_job.cc:859:<span class='funcNameEnter'>AddCookieHeaderAndStart</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.428][    0ms]     ········url_request_http_job.cc:402:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.428][    0ms]     ·······url_request.cc:704:<span class='funcNameEnter'>StartJob</span> ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.428][    0ms]     ······url_request.cc:665:<span class='funcNameEnter'>BeforeRequestComplete</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.428][    0ms]     ·····url_request.cc:572:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: Gray;'>[10-19 15:34:21.428][    0ms]     ····http_fetcher_core.cc:645:<span class='funcNameEnter'>StartURLRequest</span> ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.428][    0ms]     ···http_fetcher_core.cc:779:<span class='funcNameEnter'>StartURLRequestWhenAppropriate</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.428][    0ms]     ··http_fetcher_core.cc:764:<span class='funcNameEnter'>DidInitializeWriter</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.428][    0ms]     ·http_fetcher_core.cc:612:<span class='funcNameEnter'>StartOnIOThread</span> ↗↗↗</span>
+
+TID[-378707861]
+<span style='color: DarkYellow;'>[10-19 15:34:21.432][    4ms]         ··host_resolver_proc.cc:230:<span class='funcNameEnter'>SystemHostResolverCall</span> getaddrinfo err[0]</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.432][    0ms]         ··:261 err[0]</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.432][    0ms]         ··:147 ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-19 15:34:21.432][    0ms]         ·host_resolver_impl.cc:835:<span class='funcNameEnter'>DoLookup</span> Resolve... os_error[0] error[0]</span>
+<span style='color: Magenta;'>[10-19 15:34:21.432][    0ms]         ·:849 PostTask OnLookupComplete attempt_number[1], error[0], os_error[0]</span>
+<span style='color: Magenta;'>[10-19 15:34:21.432][    0ms]         ·:850 <span class='funcNameCall'>OnLookupComplete</span></span>
+<span style='color: Magenta;'>[10-19 15:34:21.432][    0ms]         ·:825 ↗↗↗</span>
+
+TID[2131466716]
+<span style='color: Green;'>[10-19 15:34:21.432][    0ms]     ·host_resolver_impl.cc:875:<span class='funcNameEnter'>OnLookupComplete</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.432][    0ms]     ·:876 attempt_number[1] error[0] os_error[0]</span>
+<span style='color: Green;'>[10-19 15:34:21.432][    0ms]     ·:952 EndEvent HOST_RESOLVER_IMPL_PROC_TASK</span>
+<span style='color: Green;'>[10-19 15:34:21.432][    0ms]     ·:956 callback_.Run error[0]</span>
+<span style='color: Green;'>[10-19 15:34:21.432][    0ms]     ·:957 <span class='funcNameCall'>Run</span></span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.432][    0ms]     ··host_resolver_impl.cc:1825:<span class='funcNameEnter'>OnProcTaskComplete</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.433][    1ms]     ··:1826 net_error[0]</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.433][    0ms]     ··:1850 dns_task_error_[0]</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.433][    0ms]     ··:1892 <span class='funcNameCall'>MakeAddressListForRequest</span></span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.433][    0ms]     ···host_resolver_impl.cc:2009:<span class='funcNameEnter'>CompleteRequests</span> ↘↘↘</span>
+
+<span style='color: DarkGray;'>[10-19 15:34:21.433][    0ms]     ····host_resolver_impl.cc:2974:<span class='funcNameEnter'>SchedulePersist</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-19 15:34:21.433][    0ms]     ····:2974 ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.433][    0ms]     ···host_resolver_impl.cc:2083:<span class='funcNameEnter'>CompleteRequests</span> <span class='funcNameCall'>MaybeAddCacheHitCallback</span></span>
+<span style='color: DarkCyan;'>[10-19 15:34:21.433][    0ms]     ···:2089 <span class='funcNameCall'>OnJobCompleted</span></span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ····host_resolver_impl.cc:634:<span class='funcNameEnter'>OnJobCompleted</span> ↘↘↘</span>
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ····:635 error[0]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ····:641 <span class='funcNameCall'>callback_</span></span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.433][    0ms]     ·····transport_client_socket_pool.cc:253:<span class='funcNameEnter'>OnIOComplete</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-19 15:34:21.433][    0ms]     ·····:254 result[0]</span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ······transport_client_socket_pool.cc:267:<span class='funcNameEnter'>DoLoop</span> ↘↘↘</span>
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ······:268 result[0]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ······:276 loop start state[1]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ······:286 STATE_RESOLVE_HOST_COMPLETE DoResolveHostComplete</span>
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ······:287 <span class='funcNameCall'>DoResolveHostComplete</span></span>
+
+<span style='color: Gray;'>[10-19 15:34:21.433][    0ms]     ·······transport_client_socket_pool.cc:333:<span class='funcNameEnter'>DoResolveHostComplete</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-19 15:34:21.433][    0ms]     ·······:334 result[0]</span>
+<span style='color: Gray;'>[10-19 15:34:21.433][    0ms]     ·······:351 host_resolution_callback() exist, call host_resolution_callback().Run</span>
+<span style='color: Gray;'>[10-19 15:34:21.433][    0ms]     ·······:352 <span class='funcNameCall'>Run</span></span>
+<span style='color: Gray;'>[10-19 15:34:21.433][    0ms]     ·······:361 next_state_ = STATE_TRANSPORT_CONNECT return result</span>
+<span style='color: Gray;'>[10-19 15:34:21.433][    0ms]     ·······:333 ↗↗↗</span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ······transport_client_socket_pool.cc:276:<span class='funcNameEnter'>DoLoop</span> loop start state[2]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ······:292 STATE_TRANSPORT_CONNECT DoTransportConnect</span>
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ······:293 <span class='funcNameCall'>DoTransportConnect</span></span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.433][    0ms]     ·······transport_client_socket_pool.cc:368:<span class='funcNameEnter'>DoTransportConnect</span> ↘↘↘</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.433][    0ms]     ········tcp_socket_posix.cc:157:<span class='funcNameEnter'>TCPSocketPosix</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.433][    0ms]     ········:157 ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.433][    0ms]     ········tcp_client_socket.cc:40:<span class='funcNameEnter'>TCPClientSocket</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.433][    0ms]     ········:40 ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.433][    0ms]     ········net_errors_posix.cc:21:<span class='funcNameEnter'>MapSystemError</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.433][    0ms]     ········:21 ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.433][    0ms]     ·······transport_client_socket_pool.cc:368:<span class='funcNameEnter'>DoTransportConnect</span> ↗↗↗</span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ······transport_client_socket_pool.cc:309:<span class='funcNameEnter'>DoLoop</span> return rv[-1]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ······:267 ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.433][    0ms]     ·····transport_client_socket_pool.cc:253:<span class='funcNameEnter'>OnIOComplete</span> ↗↗↗</span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.433][    0ms]     ····host_resolver_impl.cc:634:<span class='funcNameEnter'>OnJobCompleted</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-19 15:34:21.433][    0ms]     ···host_resolver_impl.cc:2009:<span class='funcNameEnter'>CompleteRequests</span> ↗↗↗</span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.433][    0ms]     ··host_resolver_impl.cc:1825:<span class='funcNameEnter'>OnProcTaskComplete</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.433][    0ms]     ·host_resolver_impl.cc:875:<span class='funcNameEnter'>OnLookupComplete</span> ↗↗↗</span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.679][  246ms]     ·client_socket_pool_base.cc:56:<span class='funcNameEnter'>ConnectJob</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.679][    0ms]     ·:57 timeout_duration[240000]ms</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.679][    0ms]     ·:56 ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.679][    0ms]     ·transport_client_socket_pool.cc:130:<span class='funcNameEnter'>TransportConnectJob</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.679][    0ms]     ·:131 timeout_duration[240000]ms</span>
+<span style='color: Green;'>[10-19 15:34:21.679][    0ms]     ·:130 ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.679][    0ms]     ·client_socket_pool_base.cc:76:<span class='funcNameEnter'>Connect</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.680][    1ms]     ·:77 timeout_duration_[240000]ms</span>
+<span style='color: Green;'>[10-19 15:34:21.680][    0ms]     ·:81 timer_.Start(... ConnectJob::OnTimeout)</span>
+<span style='color: Green;'>[10-19 15:34:21.680][    0ms]     ·:89 rv = ConnectInternal()</span>
+<span style='color: Green;'>[10-19 15:34:21.680][    0ms]     ·:90 <span class='funcNameCall'>ConnectInternal</span></span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.680][    0ms]     ··transport_client_socket_pool.cc:596:<span class='funcNameEnter'>ConnectInternal</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.680][    0ms]     ··:598 return DoLoop(OK)</span>
+<span style='color: DarkYellow;'>[10-19 15:34:21.680][    0ms]     ··:599 <span class='funcNameCall'>DoLoop</span></span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.680][    0ms]     ···transport_client_socket_pool.cc:267:<span class='funcNameEnter'>DoLoop</span> ↘↘↘</span>
+<span style='color: Yellow;'>[10-19 15:34:21.680][    0ms]     ···:268 result[0]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.680][    0ms]     ···:276 loop start state[0]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.680][    0ms]     ···:280 STATE_RESOLVE_HOST DoResolveHost</span>
+<span style='color: Yellow;'>[10-19 15:34:21.680][    0ms]     ···:282 <span class='funcNameCall'>DoResolveHost</span></span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.680][    0ms]     ····transport_client_socket_pool.cc:314:<span class='funcNameEnter'>DoResolveHost</span> ↘↘↘</span>
+<span style='color: Yellow;'>[10-19 15:34:21.680][    0ms]     ····:323 return resolver_->Resolve(TransportConnectJob::OnIOComplete ...</span>
+<span style='color: Yellow;'>[10-19 15:34:21.680][    0ms]     ····:324 <span class='funcNameCall'>Resolve</span></span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.680][    0ms]     ·····host_resolver_impl.cc:2215:<span class='funcNameEnter'>Resolve</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.681][    1ms]     ·····:2215 ↗↗↗</span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.681][    0ms]     ····transport_client_socket_pool.cc:314:<span class='funcNameEnter'>DoResolveHost</span> ↗↗↗</span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.681][    0ms]     ···transport_client_socket_pool.cc:276:<span class='funcNameEnter'>DoLoop</span> loop start state[1]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.681][    0ms]     ···:286 STATE_RESOLVE_HOST_COMPLETE DoResolveHostComplete</span>
+<span style='color: Yellow;'>[10-19 15:34:21.681][    0ms]     ···:287 <span class='funcNameCall'>DoResolveHostComplete</span></span>
+
+<span style='color: Gray;'>[10-19 15:34:21.681][    0ms]     ····transport_client_socket_pool.cc:333:<span class='funcNameEnter'>DoResolveHostComplete</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-19 15:34:21.681][    0ms]     ····:334 result[0]</span>
+<span style='color: Gray;'>[10-19 15:34:21.681][    0ms]     ····:351 host_resolution_callback() exist, call host_resolution_callback().Run</span>
+<span style='color: Gray;'>[10-19 15:34:21.681][    0ms]     ····:352 <span class='funcNameCall'>Run</span></span>
+<span style='color: Gray;'>[10-19 15:34:21.681][    0ms]     ····:361 next_state_ = STATE_TRANSPORT_CONNECT return result</span>
+<span style='color: Gray;'>[10-19 15:34:21.681][    0ms]     ····:333 ↗↗↗</span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.681][    0ms]     ···transport_client_socket_pool.cc:276:<span class='funcNameEnter'>DoLoop</span> loop start state[2]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.681][    0ms]     ···:292 STATE_TRANSPORT_CONNECT DoTransportConnect</span>
+<span style='color: Yellow;'>[10-19 15:34:21.681][    0ms]     ···:293 <span class='funcNameCall'>DoTransportConnect</span></span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.681][    0ms]     ····transport_client_socket_pool.cc:368:<span class='funcNameEnter'>DoTransportConnect</span> ↘↘↘</span>
+
+<span style='color: DarkRed;'>[10-19 15:34:21.681][    0ms]     ·····tcp_socket_posix.cc:157:<span class='funcNameEnter'>TCPSocketPosix</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-19 15:34:21.681][    0ms]     ·····:157 ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.681][    0ms]     ·····tcp_client_socket.cc:40:<span class='funcNameEnter'>TCPClientSocket</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:21.681][    0ms]     ·····:40 ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:21.681][    0ms]     ·····net_errors_posix.cc:21:<span class='funcNameEnter'>MapSystemError</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-19 15:34:21.681][    0ms]     ·····:21 ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-19 15:34:21.681][    0ms]     ····transport_client_socket_pool.cc:368:<span class='funcNameEnter'>DoTransportConnect</span> ↗↗↗</span>
+
+<span style='color: Yellow;'>[10-19 15:34:21.681][    0ms]     ···transport_client_socket_pool.cc:309:<span class='funcNameEnter'>DoLoop</span> return rv[-1]</span>
+<span style='color: Yellow;'>[10-19 15:34:21.681][    0ms]     ···:267 ↗↗↗</span>
+
+<span style='color: DarkYellow;'>[10-19 15:34:21.681][    0ms]     ··transport_client_socket_pool.cc:596:<span class='funcNameEnter'>ConnectInternal</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:21.681][    0ms]     ·client_socket_pool_base.cc:76:<span class='funcNameEnter'>Connect</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:24.338][2,657ms]     ·http_fetcher_task.cc:262:<span class='funcNameEnter'>OnFetchTimeout</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-19 15:34:24.339][    1ms]     ·:265 visitor_->OnTaskError(request_id_, url_fetcher(), net::ERR_TIMED_OUT);</span>
+<span style='color: DarkGreen;'>[10-19 15:34:24.339][    0ms]     ·:266 request_id_[1]</span>
+<span style='color: DarkGreen;'>[10-19 15:34:24.339][    0ms]     ·:267 <span class='funcNameCall'>OnTaskError</span></span>
+
+<span style='color: Magenta;'>[10-19 15:34:24.339][    0ms]     ··http_client_impl.cc:128:<span class='funcNameEnter'>OnTaskError</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-19 15:34:24.339][    0ms]     ··:129 response_delegate_->OnHttpError</span>
+<span style='color: Magenta;'>[10-19 15:34:24.339][    0ms]     ··:130 request_id[1]</span>
+<span style='color: Magenta;'>[10-19 15:34:24.339][    0ms]     ··:131 error_code[4294967289]</span>
+<span style='color: Magenta;'>[10-19 15:34:24.339][    0ms]     ··:132 net::ErrorToString(error_code)[net::ERR_TIMED_OUT]</span>
+<span style='color: Magenta;'>[10-19 15:34:24.339][    0ms]     ··:133 <span class='funcNameCall'>OnHttpError</span></span>
+OnHttpResponse.OnHttpError request_id[1] error_code[-7] error_message[net::ERR_TIMED_OUT] 
+<span style='color: Magenta;'>[10-19 15:34:24.340][    1ms]     ··:128 ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-19 15:34:24.340][    0ms]     ·http_fetcher_task.cc:262:<span class='funcNameEnter'>OnFetchTimeout</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-19 15:34:24.340][    0ms]     ·http_fetcher_task.cc:43:<span class='funcNameEnter'>~HttpFetcherTask</span> ↘↘↘</span>
+<span style='color: Green;'>[10-19 15:34:24.340][    0ms]     ·:46 <span class='funcNameCall'>Stop</span></span>
+<span style='color: Green;'>[10-19 15:34:24.340][    0ms]     ·:43 ↗↗↗</span>
+</pre>
+</body>
+</html>

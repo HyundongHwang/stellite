@@ -1,0 +1,507 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- https://github.com/a115/HTML-SVG-connect -->
+    <script src="https://hhdpublish.blob.core.windows.net/pub/LeaticIcible/jquery.html-svg-connect.js"></script>
+    <style>
+        pre {
+            color: white;
+            background-color: black;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .my-line-style {
+            stroke-dasharray: 3px;
+            stroke-width: 3px;
+        }
+
+        #svgContainer {
+            z-index: 10;
+            position: absolute;
+            pointer-events:none;
+        }
+    </style>
+    <script>
+
+        function connectAll() {
+            let paths = [];
+            let funcNameCallArray = $(".funcNameCall");
+
+            for (let i = 0; i < funcNameCallArray.length; i++) {
+                let caller = funcNameCallArray.eq(i);
+                let next = caller.parent().next();
+
+                for (let j = 0; j < 1000; j++) {
+                    if (next.find(".funcNameEnter").length > 0) {
+                        let callee = next.find(".funcNameEnter");
+                        if (callee.text() == caller.text()) {
+                            let callerClr = caller.css("color");
+                            caller.css("border-style", "solid").css("border-width", "1px");
+                            callee.css("border-style", "solid").css("border-width", "1px");
+                            paths.push({ start: caller, end: callee, stroke: callerClr });
+                            break;
+                        }
+                    }
+
+                    next = next.next();
+
+                    if (next.length == 0) {
+                        break;
+                    }
+                }
+            }
+
+
+            $("#svgContainer").HTMLSVGconnect({
+                orientation: "auto",
+                class: "my-line-style",
+                paths: paths,
+            });
+        }
+
+        $(function () {
+            console.log("hello jq");
+            connectAll();
+        });
+
+        $(window).resize(function () {
+            connectAll();
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <div id="svgContainer"></div>
+
+        <pre>
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from stellite
+[ RUN      ] stellite.get_tcp
+request.url[https://www.google.co.kr:123] 
+
+TID[1630391223]
+<span style='color: Cyan;'>[10-18 21:58:37.135][    0ms] http_client_impl.cc:56:<span class='funcNameEnter'>Request</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-18 21:58:37.136][    1ms] :60 url[https://www.google.co.kr:123] request_type[0] timeout[3000]</span>
+<span style='color: Cyan;'>[10-18 21:58:37.136][    0ms] :62 http_fetcher_->Request(http_request, timeout, ...)</span>
+<span style='color: Cyan;'>[10-18 21:58:37.136][    0ms] :63 <span class='funcNameCall'>Request</span></span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.136][    0ms] ·http_fetcher.cc:46:<span class='funcNameEnter'>Request</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-18 21:58:37.136][    0ms] ·:51 GetTaskRunner()->PostTask HttpFetcher::StartRequest ( request_id[1] http_request timeout[3000] )</span>
+<span style='color: Magenta;'>[10-18 21:58:37.137][    1ms] ·:52 <span class='funcNameCall'>StartRequest</span></span>
+<span style='color: Magenta;'>[10-18 21:58:37.137][    0ms] :46 ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.137][    0ms] http_client_impl.cc:56:<span class='funcNameEnter'>Request</span> ↗↗↗</span>
+
+TID[57218017]
+<span style='color: DarkGray;'>[10-18 21:58:37.138][    1ms]     http_fetcher.cc:79:<span class='funcNameEnter'>StartRequest</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.138][    0ms]     :80 request_id[1]</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.138][    0ms]     :96 task->Start(http_request, timeout[3000])</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.138][    0ms]     :97 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.138][    0ms]     ·http_fetcher_task.cc:54:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-18 21:58:37.139][    1ms]     ·:55 timeout_msec[3000]ms</span>
+<span style='color: Cyan;'>[10-18 21:58:37.139][    0ms]     ·:124 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.139][    0ms]     ··http_fetcher_impl.cc:174:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-18 21:58:37.140][    1ms]     ··:175 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.140][    0ms]     ···http_fetcher_core.cc:118:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-18 21:58:37.140][    0ms]     ···:132 network_task_runner_->PostTask HttpFetcherCore::StartOnIOThread</span>
+<span style='color: Cyan;'>[10-18 21:58:37.140][    0ms]     ···:133 <span class='funcNameCall'>StartOnIOThread</span></span>
+<span style='color: Cyan;'>[10-18 21:58:37.141][    1ms]     ··:118 ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.141][    0ms]     ·http_fetcher_impl.cc:174:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-18 21:58:37.141][    0ms]     ·http_fetcher_task.cc:148:<span class='funcNameEnter'>ResetTimeout</span> timeout_msec[3000]</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.141][    0ms]     ·:157 url_fetch_timeout_timer_->Start(timeout_msec[3000], HttpFetcherTask::OnFetchTimeout)</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.142][    1ms]     ·:158 url_fetch_timeout_timer_->Start(HttpFetcherTask::OnFetchTimeout)</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.142][    0ms]     ·:159 <span class='funcNameCall'>OnFetchTimeout</span></span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.142][    0ms]     http_fetcher_task.cc:54:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.142][    0ms]     http_fetcher.cc:79:<span class='funcNameEnter'>StartRequest</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.143][    1ms]     http_fetcher_core.cc:612:<span class='funcNameEnter'>StartOnIOThread</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.143][    0ms]     :626 response_writer_->Initialize HttpFetcherCore::DidInitializeWriter</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.143][    0ms]     :627 <span class='funcNameCall'>Initialize</span></span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.143][    0ms]     :628 <span class='funcNameCall'>DidInitializeWriter</span></span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.143][    0ms]     :632 result[0]</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.143][    0ms]     :636 result != ERR_IO_PENDING</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.144][    1ms]     :637 DidInitializeWriter(result[0])</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.144][    0ms]     :638 <span class='funcNameCall'>DidInitializeWriter</span></span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.144][    0ms]     ·http_fetcher_core.cc:764:<span class='funcNameEnter'>DidInitializeWriter</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-18 21:58:37.144][    0ms]     ·:765 result[0]</span>
+<span style='color: DarkGreen;'>[10-18 21:58:37.144][    0ms]     ·:773 <span class='funcNameCall'>StartURLRequestWhenAppropriate</span></span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.144][    0ms]     ··http_fetcher_core.cc:779:<span class='funcNameEnter'>StartURLRequestWhenAppropriate</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-18 21:58:37.145][    1ms]     ··:789 <span class='funcNameCall'>GetURLRequestContext</span></span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.145][    0ms]     ···http_request_context_getter.cc:402:<span class='funcNameEnter'>GetURLRequestContext</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.146][    1ms]     ···:405 if context_ empty</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.146][    0ms]     ···:406 <span class='funcNameCall'>BuildContext</span></span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.146][    0ms]     ····http_request_context_getter.cc:163:<span class='funcNameEnter'>BuildContext</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.146][    0ms]     ····:188 network_delegate_ not exist MakeUnique</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.146][    0ms]     ····:201 host_resolver_ not exist HostResolver::CreateDefaultResolver</span>
+
+<span style='color: Yellow;'>[10-18 21:58:37.147][    1ms]     ·····dns_config_service.cc:29:<span class='funcNameEnter'>DnsConfig</span> ↘↘↘</span>
+<span style='color: Yellow;'>[10-18 21:58:37.147][    0ms]     ·····:31 kDnsDefaultTimeoutMs[1000]</span>
+<span style='color: Yellow;'>[10-18 21:58:37.147][    0ms]     ····:29 ↗↗↗</span>
+<span style='color: Yellow;'>[10-18 21:58:37.147][    0ms]     ·····:29 ↘↘↘</span>
+<span style='color: Yellow;'>[10-18 21:58:37.147][    0ms]     ·····:31 kDnsDefaultTimeoutMs[1000]</span>
+<span style='color: Yellow;'>[10-18 21:58:37.148][    1ms]     ····:29 ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.148][    0ms]     ····http_request_context_getter.cc:213:<span class='funcNameEnter'>BuildContext</span> proxy_service_ not exist ProxyService::CreateDirectWithNetLog</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.148][    0ms]     ····:228 http_auth_handler_factory_ not exist HttpAuthHandlerRegistryFactory::CreateDefault</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.150][    2ms]     ····:258 http_server_properties_ not exist MakeUnique HttpServerPropertiesImpl</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.150][    0ms]     ····:270 cert_verifier_ not exist MakeUnique CertVerifier::CreateDefault</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.231][   81ms]     ····:272 CertVerifier::CreateDefault finish</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.231][    0ms]     ····:282 ct_verifier_ not exist MakeUnique MultiLogCTVerifier</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.232][    1ms]     ····:293 params.throttling_enable true MakeUnique URLRequestThrottlerManager</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.232][    0ms]     ····:356 set_http_network_session MakeUnique HttpNetworkSession(network_session_params)</span>
+
+<span style='color: DarkYellow;'>[10-18 21:58:37.232][    0ms]     ·····quic_config.cc:669:<span class='funcNameEnter'>SetDefaults</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-18 21:58:37.232][    0ms]     ·····:672 idle_connection_state_lifetime_seconds_.set(kMaximumIdleTimeoutSecs[600] kDefaultIdleTimeoutSecs[30])</span>
+<span style='color: DarkYellow;'>[10-18 21:58:37.232][    0ms]     ·····:681 max_time_before_crypto_handshake_[0]</span>
+<span style='color: DarkYellow;'>[10-18 21:58:37.232][    0ms]     ·····:684 max_idle_time_before_crypto_handshake_[0]</span>
+<span style='color: DarkYellow;'>[10-18 21:58:37.232][    0ms]     ····:669 ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.232][    0ms]     ·····quic_stream_factory.cc:889:<span class='funcNameEnter'>QuicStreamFactory</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-18 21:58:37.232][    0ms]     ····:889 ↗↗↗</span>
+
+<span style='color: Green;'>[10-18 21:58:37.232][    0ms]     ·····http_network_session.cc:208:<span class='funcNameEnter'>HttpNetworkSession</span> ↘↘↘</span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.232][    0ms]     ······client_socket_pool_base.cc:214:<span class='funcNameEnter'>ClientSocketPoolBaseHelper</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.232][    0ms]     ······:215 unused_idle_socket_timeout[10000]ms</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.232][    0ms]     ······:216 used_idle_socket_timeout[300000]ms</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    2ms]     ·····:214 ↗↗↗</span>
+
+<span style='color: Green;'>[10-18 21:58:37.234][    0ms]     ······ssl_client_socket_pool.cc:543:<span class='funcNameEnter'>SSLConnectJobFactory</span> ↘↘↘</span>
+<span style='color: Green;'>[10-18 21:58:37.234][    0ms]     ······:544 max_transport_timeout[240000]ms</span>
+<span style='color: Green;'>[10-18 21:58:37.234][    0ms]     ······:545 pool_timeout[0]ms</span>
+<span style='color: Green;'>[10-18 21:58:37.234][    0ms]     ······:546 timeout_[270000]ms</span>
+<span style='color: Green;'>[10-18 21:58:37.234][    0ms]     ·····:543 ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ······client_socket_pool_base.cc:214:<span class='funcNameEnter'>ClientSocketPoolBaseHelper</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ······:215 unused_idle_socket_timeout[10000]ms</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ······:216 used_idle_socket_timeout[300000]ms</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ·····:214 ↗↗↗</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ······:214 ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ······:215 unused_idle_socket_timeout[10000]ms</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ······:216 used_idle_socket_timeout[300000]ms</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ·····:214 ↗↗↗</span>
+
+<span style='color: Green;'>[10-18 21:58:37.234][    0ms]     ······ssl_client_socket_pool.cc:543:<span class='funcNameEnter'>SSLConnectJobFactory</span> ↘↘↘</span>
+<span style='color: Green;'>[10-18 21:58:37.234][    0ms]     ······:544 max_transport_timeout[240000]ms</span>
+<span style='color: Green;'>[10-18 21:58:37.234][    0ms]     ······:545 pool_timeout[0]ms</span>
+<span style='color: Green;'>[10-18 21:58:37.234][    0ms]     ······:546 timeout_[270000]ms</span>
+<span style='color: Green;'>[10-18 21:58:37.234][    0ms]     ·····:543 ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ······client_socket_pool_base.cc:214:<span class='funcNameEnter'>ClientSocketPoolBaseHelper</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ······:215 unused_idle_socket_timeout[10000]ms</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ······:216 used_idle_socket_timeout[300000]ms</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.234][    0ms]     ·····:214 ↗↗↗</span>
+
+<span style='color: Green;'>[10-18 21:58:37.234][    0ms]     ····http_network_session.cc:208:<span class='funcNameEnter'>HttpNetworkSession</span> ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.234][    0ms]     ····http_request_context_getter.cc:386:<span class='funcNameEnter'>BuildContext</span> cache_max_size = 0</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.234][    0ms]     ····:396 finish build context</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.234][    0ms]     ···:163 ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.234][    0ms]     ··http_request_context_getter.cc:402:<span class='funcNameEnter'>GetURLRequestContext</span> ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.234][    0ms]     ··http_fetcher_core.cc:818:<span class='funcNameEnter'>StartURLRequestWhenAppropriate</span> <span class='funcNameCall'>StartURLRequest</span></span>
+
+<span style='color: Gray;'>[10-18 21:58:37.234][    0ms]     ···http_fetcher_core.cc:645:<span class='funcNameEnter'>StartURLRequest</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-18 21:58:37.234][    0ms]     ···:655 request_context_getter_->GetURLRequestContext()</span>
+<span style='color: Gray;'>[10-18 21:58:37.235][    1ms]     ···:657 <span class='funcNameCall'>GetURLRequestContext</span></span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.235][    0ms]     ····http_request_context_getter.cc:402:<span class='funcNameEnter'>GetURLRequestContext</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.235][    0ms]     ···:402 ↗↗↗</span>
+
+<span style='color: Gray;'>[10-18 21:58:37.235][    0ms]     ···http_fetcher_core.cc:670:<span class='funcNameEnter'>StartURLRequest</span> <span class='funcNameCall'>CreateRequest</span></span>
+<span style='color: Gray;'>[10-18 21:58:37.235][    0ms]     ···:671 <span class='funcNameCall'>GetURLRequestContext</span></span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.235][    0ms]     ····http_request_context_getter.cc:402:<span class='funcNameEnter'>GetURLRequestContext</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.235][    0ms]     ···:402 ↗↗↗</span>
+
+<span style='color: Gray;'>[10-18 21:58:37.235][    0ms]     ···http_fetcher_core.cc:758:<span class='funcNameEnter'>StartURLRequest</span> <span class='funcNameCall'>Start</span></span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.235][    0ms]     ····url_request.cc:572:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.235][    0ms]     ····:609 BeforeRequestComplete(error[0])</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.235][    0ms]     ····:610 <span class='funcNameCall'>BeforeRequestComplete</span></span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.235][    0ms]     ·····url_request.cc:665:<span class='funcNameEnter'>BeforeRequestComplete</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-18 21:58:37.235][    0ms]     ·····:694 StartJob(URLRequestJobManager::GetInstance()->CreateJob(network_delegate_)</span>
+<span style='color: Cyan;'>[10-18 21:58:37.235][    0ms]     ·····:695 <span class='funcNameCall'>CreateJob</span></span>
+<span style='color: Cyan;'>[10-18 21:58:37.235][    0ms]     ·····:696 <span class='funcNameCall'>StartJob</span></span>
+
+<span style='color: Green;'>[10-18 21:58:37.235][    0ms]     ······url_request.cc:704:<span class='funcNameEnter'>StartJob</span> ↘↘↘</span>
+<span style='color: Green;'>[10-18 21:58:37.235][    0ms]     ······:760 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: Green;'>[10-18 21:58:37.235][    0ms]     ·······url_request_http_job.cc:402:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: Green;'>[10-18 21:58:37.235][    0ms]     ·······:446 <span class='funcNameCall'>AddCookieHeaderAndStart</span></span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.235][    0ms]     ········url_request_http_job.cc:859:<span class='funcNameEnter'>AddCookieHeaderAndStart</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.235][    0ms]     ········:906 cookie_store->GetCookieListWithOptionsAsync(request_->url(), URLRequestHttpJob::SetCookieHeaderAndStart)</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.235][    0ms]     ········:907 <span class='funcNameCall'>GetCookieListWithOptionsAsync</span></span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.235][    0ms]     ········:908 <span class='funcNameCall'>SetCookieHeaderAndStart</span></span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.236][    1ms]     ·········url_request_http_job.cc:922:<span class='funcNameEnter'>SetCookieHeaderAndStart</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-18 21:58:37.236][    0ms]     ·········:930 <span class='funcNameCall'>DoStartTransaction</span></span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.236][    0ms]     ··········url_request_http_job.cc:936:<span class='funcNameEnter'>DoStartTransaction</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.236][    0ms]     ··········:940 <span class='funcNameCall'>StartTransaction</span></span>
+
+<span style='color: DarkRed;'>[10-18 21:58:37.236][    0ms]     ···········url_request_http_job.cc:604:<span class='funcNameEnter'>StartTransaction</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.236][    0ms]     ···········:620 MaybeStartTransactionInternal(rv[0])</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.236][    0ms]     ···········:621 <span class='funcNameCall'>MaybeStartTransactionInternal</span></span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.236][    0ms]     ············url_request_http_job.cc:638:<span class='funcNameEnter'>MaybeStartTransactionInternal</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.236][    0ms]     ············:647 if (result == OK)</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.236][    0ms]     ············:648 <span class='funcNameCall'>StartTransactionInternal</span></span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.236][    0ms]     ············url_request_http_job.cc:720:<span class='funcNameEnter'>StartTransactionInternal</span> <span class='funcNameCall'>Start</span></span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.236][    0ms]     ·············http_network_transaction.cc:145:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-18 21:58:37.236][    0ms]     ·············:162 <span class='funcNameCall'>DoLoop</span></span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.237][    1ms]     ··············http_network_transaction.cc:723:<span class='funcNameEnter'>DoLoop</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-18 21:58:37.237][    0ms]     ··············:724 result[0]</span>
+<span style='color: Magenta;'>[10-18 21:58:37.237][    0ms]     ··············:740 <span class='funcNameCall'>DoCreateStream</span></span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.237][    0ms]     ···············http_network_transaction.cc:863:<span class='funcNameEnter'>DoCreateStream</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.237][    0ms]     ···············:889 stream_request_.reset(...)</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.237][    0ms]     ···············:890 <span class='funcNameCall'>RequestStream</span></span>
+
+<span style='color: Gray;'>[10-18 21:58:37.237][    0ms]     ················http_stream_factory_impl.cc:108:<span class='funcNameEnter'>RequestStream</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-18 21:58:37.237][    0ms]     ················:112 <span class='funcNameCall'>RequestStreamInternal</span></span>
+
+<span style='color: DarkYellow;'>[10-18 21:58:37.237][    0ms]     ·················http_stream_factory_impl.cc:160:<span class='funcNameEnter'>RequestStreamInternal</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-18 21:58:37.237][    0ms]     ·················:166 <span class='funcNameCall'>Start</span></span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.237][    0ms]     ··················http_stream_factory_impl_job_controller.cc:85:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-18 21:58:37.238][    1ms]     ··················:94 <span class='funcNameCall'>CreateJobs</span></span>
+
+<span style='color: Green;'>[10-18 21:58:37.238][    0ms]     ···················http_stream_factory_impl_job_controller.cc:722:<span class='funcNameEnter'>CreateJobs</span> ↘↘↘</span>
+
+<span style='color: Green;'>[10-18 21:58:37.238][    0ms]     ····················http_network_session.h:244:<span class='funcNameEnter'>quic_stream_factory</span> ↘↘↘</span>
+<span style='color: Green;'>[10-18 21:58:37.238][    0ms]     ···················:244 ↗↗↗</span>
+
+<span style='color: Green;'>[10-18 21:58:37.238][    0ms]     ···················http_stream_factory_impl_job_controller.cc:766:<span class='funcNameEnter'>CreateJobs</span> <span class='funcNameCall'>Start</span></span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.238][    0ms]     ····················http_stream_factory_impl_job.cc:284:<span class='funcNameEnter'>Start</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-18 21:58:37.238][    0ms]     ····················:285 stream_type[1]</span>
+<span style='color: Magenta;'>[10-18 21:58:37.238][    0ms]     ····················:286 BIDIRECTIONAL_STREAM[0] HTTP_STREAM[1]</span>
+<span style='color: Magenta;'>[10-18 21:58:37.238][    0ms]     ····················:288 <span class='funcNameCall'>StartInternal</span></span>
+
+<span style='color: Gray;'>[10-18 21:58:37.238][    0ms]     ·····················http_stream_factory_impl_job.cc:859:<span class='funcNameEnter'>StartInternal</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-18 21:58:37.238][    0ms]     ·····················:862 <span class='funcNameCall'>RunLoop</span></span>
+
+<span style='color: DarkRed;'>[10-18 21:58:37.238][    0ms]     ······················http_stream_factory_impl_job.cc:595:<span class='funcNameEnter'>RunLoop</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.238][    0ms]     ······················:596 result[0]</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.238][    0ms]     ······················:600 result = DoLoop(result[0]);</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.238][    0ms]     ······················:601 <span class='funcNameCall'>DoLoop</span></span>
+
+<span style='color: DarkRed;'>[10-18 21:58:37.238][    0ms]     ·······················http_stream_factory_impl_job.cc:778:<span class='funcNameEnter'>DoLoop</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.239][    1ms]     ·······················:779 result[0]</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.239][    0ms]     ·······················:787 loop start result[0] state[0]</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.239][    0ms]     ·······················:793 <span class='funcNameCall'>DoStart</span></span>
+
+<span style='color: Gray;'>[10-18 21:58:37.239][    0ms]     ························http_stream_factory_impl_job.cc:870:<span class='funcNameEnter'>DoStart</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-18 21:58:37.239][    0ms]     ························:875 BeginEvent HTTP_STREAM_JOB NetLogHttpStreamJobCallback</span>
+<span style='color: Gray;'>[10-18 21:58:37.239][    0ms]     ························:883 AddEvent HTTP_STREAM_REQUEST_STARTED_JOB ToEventParametersCallback</span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.239][    0ms]     ·························port_util.cc:113:<span class='funcNameEnter'>IsPortAllowedForScheme</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.239][    0ms]     ·························:114 port[123]</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.239][    0ms]     ·························:115 url_scheme[https]</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.239][    0ms]     ·························:152 if (restricted_port == port)</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.239][    0ms]     ·························:153 restricted_port[123]</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.239][    0ms]     ·························:154 port[123]</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.239][    0ms]     ·························:155 return false;</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.239][    0ms]     ························:113 ↗↗↗</span>
+
+<span style='color: Gray;'>[10-18 21:58:37.239][    0ms]     ························http_stream_factory_impl_job.cc:893:<span class='funcNameEnter'>DoStart</span> IsPortAllowedForScheme false return ERR_UNSAFE_PORT</span>
+<span style='color: Gray;'>[10-18 21:58:37.239][    0ms]     ·······················:870 ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-18 21:58:37.239][    0ms]     ·······················http_stream_factory_impl_job.cc:851:<span class='funcNameEnter'>DoLoop</span> rv[-312] next_state_[15]</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.239][    0ms]     ······················:778 ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-18 21:58:37.239][    0ms]     ······················http_stream_factory_impl_job.cc:605:<span class='funcNameEnter'>RunLoop</span> result[-312] = DoLoop(result);</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.240][    1ms]     ······················:644 result[-312]</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.240][    0ms]     ······················:763 default PostTask OnStreamFailedCallback</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.240][    0ms]     ······················:764 result[4294966984]</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.240][    0ms]     ······················:765 <span class='funcNameCall'>OnStreamFailedCallback</span></span>
+<span style='color: DarkRed;'>[10-18 21:58:37.240][    0ms]     ·····················:595 ↗↗↗</span>
+
+<span style='color: Gray;'>[10-18 21:58:37.240][    0ms]     ····················http_stream_factory_impl_job.cc:859:<span class='funcNameEnter'>StartInternal</span> ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.240][    0ms]     ···················http_stream_factory_impl_job.cc:284:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-18 21:58:37.240][    0ms]     ··················http_stream_factory_impl_job_controller.cc:722:<span class='funcNameEnter'>CreateJobs</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.240][    0ms]     ·················http_stream_factory_impl_job_controller.cc:85:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: DarkYellow;'>[10-18 21:58:37.243][    3ms]     ················http_stream_factory_impl.cc:160:<span class='funcNameEnter'>RequestStreamInternal</span> ↗↗↗</span>
+
+<span style='color: Gray;'>[10-18 21:58:37.243][    0ms]     ···············http_stream_factory_impl.cc:108:<span class='funcNameEnter'>RequestStream</span> ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.243][    0ms]     ··············http_network_transaction.cc:863:<span class='funcNameEnter'>DoCreateStream</span> ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.243][    0ms]     ·············http_network_transaction.cc:723:<span class='funcNameEnter'>DoLoop</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.243][    0ms]     ············http_network_transaction.cc:145:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.243][    0ms]     ···········url_request_http_job.cc:638:<span class='funcNameEnter'>MaybeStartTransactionInternal</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-18 21:58:37.244][    1ms]     ··········url_request_http_job.cc:604:<span class='funcNameEnter'>StartTransaction</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.244][    0ms]     ·········url_request_http_job.cc:936:<span class='funcNameEnter'>DoStartTransaction</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.244][    0ms]     ········url_request_http_job.cc:922:<span class='funcNameEnter'>SetCookieHeaderAndStart</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.244][    0ms]     ·······url_request_http_job.cc:859:<span class='funcNameEnter'>AddCookieHeaderAndStart</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-18 21:58:37.244][    0ms]     ······url_request_http_job.cc:402:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-18 21:58:37.244][    0ms]     ·····url_request.cc:704:<span class='funcNameEnter'>StartJob</span> ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.244][    0ms]     ····url_request.cc:665:<span class='funcNameEnter'>BeforeRequestComplete</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.244][    0ms]     ···url_request.cc:572:<span class='funcNameEnter'>Start</span> ↗↗↗</span>
+
+<span style='color: Gray;'>[10-18 21:58:37.244][    0ms]     ··http_fetcher_core.cc:645:<span class='funcNameEnter'>StartURLRequest</span> ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.244][    0ms]     ·http_fetcher_core.cc:779:<span class='funcNameEnter'>StartURLRequestWhenAppropriate</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.244][    0ms]     http_fetcher_core.cc:764:<span class='funcNameEnter'>DidInitializeWriter</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.244][    0ms]     http_fetcher_core.cc:612:<span class='funcNameEnter'>StartOnIOThread</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-18 21:58:37.245][    1ms]     http_stream_factory_impl_job.cc:498:<span class='funcNameEnter'>OnStreamFailedCallback</span> ↘↘↘</span>
+<span style='color: Green;'>[10-18 21:58:37.245][    0ms]     :499 result[-312]</span>
+<span style='color: Green;'>[10-18 21:58:37.245][    0ms]     :504 <span class='funcNameCall'>OnStreamFailed</span></span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.245][    0ms]     ·http_stream_factory_impl_job_controller.cc:286:<span class='funcNameEnter'>OnStreamFailed</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-18 21:58:37.245][    0ms]     ·:287 status[-312]</span>
+<span style='color: Cyan;'>[10-18 21:58:37.245][    0ms]     ·:329 request_->OnStreamFailed(status, used_ssl_config);</span>
+<span style='color: Cyan;'>[10-18 21:58:37.245][    0ms]     ·:330 <span class='funcNameCall'>OnStreamFailed</span></span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.245][    0ms]     ··http_stream_factory_impl_request.cc:91:<span class='funcNameEnter'>OnStreamFailed</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.245][    0ms]     ··:92 status[-312]</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.245][    0ms]     ··:93 delegate_->OnStreamFailed(status, used_ssl_config);</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.245][    0ms]     ··:94 <span class='funcNameCall'>OnStreamFailed</span></span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.245][    0ms]     ···http_network_transaction.cc:536:<span class='funcNameEnter'>OnStreamFailed</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-18 21:58:37.245][    0ms]     ···:543 result[4294966984]</span>
+<span style='color: Cyan;'>[10-18 21:58:37.245][    0ms]     ···:544 <span class='funcNameCall'>OnIOComplete</span></span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.246][    1ms]     ····http_network_transaction.cc:712:<span class='funcNameEnter'>OnIOComplete</span> ↘↘↘</span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.246][    0ms]     ·····http_network_transaction.cc:723:<span class='funcNameEnter'>DoLoop</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-18 21:58:37.246][    0ms]     ·····:724 result[-312]</span>
+<span style='color: Magenta;'>[10-18 21:58:37.246][    0ms]     ····:723 ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.246][    0ms]     ····http_network_transaction.cc:716:<span class='funcNameEnter'>OnIOComplete</span> <span class='funcNameCall'>DoCallback</span></span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.246][    0ms]     ·····http_network_transaction.cc:698:<span class='funcNameEnter'>DoCallback</span> ↘↘↘</span>
+<span style='color: Cyan;'>[10-18 21:58:37.246][    0ms]     ·····:699 rv[-312]</span>
+<span style='color: Cyan;'>[10-18 21:58:37.246][    0ms]     ·····:706 <span class='funcNameCall'>OnReadCompleted</span></span>
+
+<span style='color: Gray;'>[10-18 21:58:37.246][    0ms]     ······url_request_http_job.cc:1106:<span class='funcNameEnter'>OnStartCompleted</span> ↘↘↘</span>
+
+<span style='color: DarkRed;'>[10-18 21:58:37.247][    1ms]     ·······url_request.cc:931:<span class='funcNameEnter'>NotifyResponseStarted</span> ↘↘↘</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.247][    0ms]     ·······:964 delegate_->OnResponseStarted(this, net_error[-312]);</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.247][    0ms]     ·······:965 <span class='funcNameCall'>OnResponseStarted</span></span>
+
+<span style='color: DarkYellow;'>[10-18 21:58:37.247][    0ms]     ········http_fetcher_core.cc:487:<span class='funcNameEnter'>OnResponseStarted</span> ↘↘↘</span>
+<span style='color: DarkYellow;'>[10-18 21:58:37.247][    0ms]     ········:511 <span class='funcNameCall'>ReadResponse</span></span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.247][    0ms]     ·········http_fetcher_core.cc:1138:<span class='funcNameEnter'>ReadResponse</span> ↘↘↘</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.247][    0ms]     ·········:1147 bytes_read = request_->Read(buffer_, kBufferSize[4096]);</span>
+<span style='color: DarkCyan;'>[10-18 21:58:37.247][    0ms]     ·········:1149 <span class='funcNameCall'>Read</span></span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.247][    0ms]     ··········url_request.cc:843:<span class='funcNameEnter'>Read</span> ↘↘↘</span>
+<span style='color: DarkGray;'>[10-18 21:58:37.247][    0ms]     ·········:843 ↗↗↗</span>
+
+<span style='color: Gray;'>[10-18 21:58:37.247][    0ms]     ··········http_fetcher_core.cc:534:<span class='funcNameEnter'>OnReadCompleted</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-18 21:58:37.248][    1ms]     ··········:576 DidFinishWriting(result[0])</span>
+<span style='color: Gray;'>[10-18 21:58:37.248][    0ms]     ··········:577 <span class='funcNameCall'>DidFinishWriting</span></span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.248][    0ms]     ···········http_fetcher_core.cc:961:<span class='funcNameEnter'>DidFinishWriting</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-18 21:58:37.248][    0ms]     ···········:967 <span class='funcNameCall'>RetryOrCompleteUrlFetch</span></span>
+
+<span style='color: Yellow;'>[10-18 21:58:37.248][    0ms]     ············http_fetcher_core.cc:974:<span class='funcNameEnter'>RetryOrCompleteUrlFetch</span> ↘↘↘</span>
+<span style='color: Yellow;'>[10-18 21:58:37.248][    0ms]     ············:1027 posted = delegate_task_runner_->PostTask(HttpFetcherCore::OnCompletedURLRequest, backoff_delay[0])</span>
+<span style='color: Yellow;'>[10-18 21:58:37.248][    0ms]     ············:1028 <span class='funcNameCall'>OnCompletedURLRequest</span></span>
+<span style='color: Yellow;'>[10-18 21:58:37.248][    0ms]     ···········:974 ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.248][    0ms]     ··········http_fetcher_core.cc:961:<span class='funcNameEnter'>DidFinishWriting</span> ↗↗↗</span>
+
+<span style='color: Gray;'>[10-18 21:58:37.248][    0ms]     ·········http_fetcher_core.cc:534:<span class='funcNameEnter'>OnReadCompleted</span> ↗↗↗</span>
+
+<span style='color: DarkCyan;'>[10-18 21:58:37.248][    0ms]     ········http_fetcher_core.cc:1138:<span class='funcNameEnter'>ReadResponse</span> ↗↗↗</span>
+
+<span style='color: DarkYellow;'>[10-18 21:58:37.248][    0ms]     ·······http_fetcher_core.cc:487:<span class='funcNameEnter'>OnResponseStarted</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-18 21:58:37.248][    0ms]     ······url_request.cc:931:<span class='funcNameEnter'>NotifyResponseStarted</span> ↗↗↗</span>
+
+<span style='color: Gray;'>[10-18 21:58:37.248][    0ms]     ·····url_request_http_job.cc:1106:<span class='funcNameEnter'>OnStartCompleted</span> ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.248][    0ms]     ····http_network_transaction.cc:698:<span class='funcNameEnter'>DoCallback</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.248][    0ms]     ···http_network_transaction.cc:712:<span class='funcNameEnter'>OnIOComplete</span> ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.248][    0ms]     ··http_network_transaction.cc:536:<span class='funcNameEnter'>OnStreamFailed</span> ↗↗↗</span>
+
+<span style='color: DarkGray;'>[10-18 21:58:37.248][    0ms]     ·http_stream_factory_impl_request.cc:91:<span class='funcNameEnter'>OnStreamFailed</span> ↗↗↗</span>
+
+<span style='color: Cyan;'>[10-18 21:58:37.248][    0ms]     http_stream_factory_impl_job_controller.cc:286:<span class='funcNameEnter'>OnStreamFailed</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-18 21:58:37.248][    0ms]     http_stream_factory_impl_job.cc:498:<span class='funcNameEnter'>OnStreamFailedCallback</span> ↗↗↗</span>
+
+<span style='color: DarkRed;'>[10-18 21:58:37.248][    0ms]     http_fetcher_task.cc:148:<span class='funcNameEnter'>ResetTimeout</span> timeout_msec[3000]</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.248][    0ms]     :151 <span class='funcNameCall'>Stop</span></span>
+<span style='color: DarkRed;'>[10-18 21:58:37.248][    0ms]     :157 url_fetch_timeout_timer_->Start(timeout_msec[3000], HttpFetcherTask::OnFetchTimeout)</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.248][    0ms]     :158 url_fetch_timeout_timer_->Start(HttpFetcherTask::OnFetchTimeout)</span>
+<span style='color: DarkRed;'>[10-18 21:58:37.248][    0ms]     :159 <span class='funcNameCall'>OnFetchTimeout</span></span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.248][    0ms]     http_fetcher_core.cc:854:<span class='funcNameEnter'>OnCompletedURLRequest</span> ↘↘↘</span>
+<span style='color: DarkGreen;'>[10-18 21:58:37.248][    0ms]     :860 <span class='funcNameCall'>InformDelegateFetchIsCompleteInDelegateThread</span></span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.248][    0ms]     ·http_fetcher_core.cc:876:<span class='funcNameEnter'>InformDelegateFetchIsCompleteInDelegateThread</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-18 21:58:37.248][    0ms]     ·:880 <span class='funcNameCall'>OnFetchComplete</span></span>
+
+<span style='color: Gray;'>[10-18 21:58:37.248][    0ms]     ··http_fetcher_task.cc:171:<span class='funcNameEnter'>OnFetchComplete</span> ↘↘↘</span>
+<span style='color: Gray;'>[10-18 21:58:37.248][    0ms]     ··:174 url_fetch_timeout_timer_->Stop();</span>
+<span style='color: Gray;'>[10-18 21:58:37.248][    0ms]     ··:175 <span class='funcNameCall'>Stop</span></span>
+<span style='color: Gray;'>[10-18 21:58:37.248][    0ms]     ··:193 visitor_->OnTaskError(request_id_, source, status.error());</span>
+<span style='color: Gray;'>[10-18 21:58:37.248][    0ms]     ··:194 request_id_[1]</span>
+<span style='color: Gray;'>[10-18 21:58:37.248][    0ms]     ··:195 status.error()[4294966984]</span>
+<span style='color: Gray;'>[10-18 21:58:37.248][    0ms]     ··:196 <span class='funcNameCall'>OnTaskError</span></span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.248][    0ms]     ···http_client_impl.cc:128:<span class='funcNameEnter'>OnTaskError</span> ↘↘↘</span>
+<span style='color: Magenta;'>[10-18 21:58:37.248][    0ms]     ···:129 response_delegate_->OnHttpError</span>
+<span style='color: Magenta;'>[10-18 21:58:37.248][    0ms]     ···:130 request_id[1]</span>
+<span style='color: Magenta;'>[10-18 21:58:37.248][    0ms]     ···:131 error_code[4294966984]</span>
+<span style='color: Magenta;'>[10-18 21:58:37.248][    0ms]     ···:132 net::ErrorToString(error_code)[net::ERR_UNSAFE_PORT]</span>
+<span style='color: Magenta;'>[10-18 21:58:37.248][    0ms]     ···:133 <span class='funcNameCall'>OnHttpError</span></span>
+OnHttpResponse.OnHttpError request_id[1] error_code[-312] error_message[net::ERR_UNSAFE_PORT] 
+<span style='color: Magenta;'>[10-18 21:58:37.252][    4ms]     ··:128 ↗↗↗</span>
+
+<span style='color: Gray;'>[10-18 21:58:37.252][    0ms]     ·http_fetcher_task.cc:171:<span class='funcNameEnter'>OnFetchComplete</span> ↗↗↗</span>
+
+<span style='color: Magenta;'>[10-18 21:58:37.252][    0ms]     http_fetcher_core.cc:876:<span class='funcNameEnter'>InformDelegateFetchIsCompleteInDelegateThread</span> ↗↗↗</span>
+
+<span style='color: DarkGreen;'>[10-18 21:58:37.252][    0ms]     http_fetcher_core.cc:854:<span class='funcNameEnter'>OnCompletedURLRequest</span> ↗↗↗</span>
+
+<span style='color: Green;'>[10-18 21:58:37.252][    0ms]     http_fetcher_task.cc:43:<span class='funcNameEnter'>~HttpFetcherTask</span> ↘↘↘</span>
+<span style='color: Green;'>[10-18 21:58:37.252][    0ms]     :46 <span class='funcNameCall'>Stop</span></span>
+<span style='color: Green;'>[10-18 21:58:37.252][    0ms]     :43 ↗↗↗</span>
+</pre>
+</body>
+</html>
